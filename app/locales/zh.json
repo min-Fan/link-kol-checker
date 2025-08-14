@@ -1,0 +1,9 @@
+{
+  "HomePage": {
+    "title": "你好，世界！"
+  },
+  "common": {
+    "copy_success": "复制成功",
+    "copy_failed": "复制失败"
+  }
+}

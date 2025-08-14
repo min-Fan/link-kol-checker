@@ -1,0 +1,9 @@
+{
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "common": {
+    "copy_success": "Copy success",
+    "copy_failed": "Copy failed"
+  }
+}
