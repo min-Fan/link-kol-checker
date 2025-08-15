@@ -20,7 +20,7 @@ export default function PostViewSkeleton() {
         {/* 时间骨架 */}
         <div className="h-3 bg-gray-200 rounded w-16"></div>
       </div>
-      
+
       {/* 内容区域 */}
       <div className="w-full">
         {/* 文本内容骨架 */}
@@ -28,14 +28,14 @@ export default function PostViewSkeleton() {
           <div className="h-4 bg-gray-300 rounded w-full"></div>
           <div className="h-4 bg-gray-300 rounded w-4/5"></div>
         </div>
-        
+
         {/* 图片区域骨架 (模拟可能有图片) */}
         <div className="mt-3 grid grid-cols-2 gap-2">
           <div className="h-32 bg-gray-200 rounded-xl"></div>
           <div className="h-32 bg-gray-200 rounded-xl"></div>
         </div>
       </div>
-      
+
       {/* 底部互动数据骨架 */}
       <div className="mt-auto flex items-center justify-between gap-1">
         <div className="flex items-center space-x-1">

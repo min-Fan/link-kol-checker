@@ -9,33 +9,43 @@ import AnimateOnView from "@/app/components/comm/AnimateOnView";
 import { AnimatePresence, motion } from "motion/react";
 import { getPrice, IGetPriceData } from "@/app/libs/request";
 import { useToast } from "@/app/shadcn/hooks/use-toast";
+import KolChart from "./components/KolChart";
+import { useRouter, useSearchParams } from "next/navigation";
+import { cn } from "@/app/shadcn/lib/utils";
 
 export default function Home() {
   const t = useTranslations("HomePage");
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [price, setPrice] = useState<IGetPriceData | null>(null);
   const [showPeopleResults, setShowPeopleResults] = useState(true);
-  const [priceWidth, setPriceWidth] = useState(0);
-  const [containerWidth, setContainerWidth] = useState(300);
-  const priceRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  const handleCheck = async () => {
+  const handleCheck = async (usernameParam?: string) => {
     try {
-      if (!username) {
+      const targetUsername = usernameParam || username;
+      if (!targetUsername) {
         toast({
           title: "Please enter a username",
         });
         return;
       }
+
       setIsLoading(true);
+
+      // 更新URL参数
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.set("username", targetUsername);
+      router.replace(`?${newParams.toString()}`);
+
       // 延迟1秒后隐藏PeopleResults
       setTimeout(() => {
         setShowPeopleResults(false);
       }, 1000);
 
-      const res = await getPrice({ screen_name: username });
+      const res = await getPrice({ screen_name: targetUsername });
       if (res.code === 200 && res.data) {
         setPrice(res.data);
       } else {
@@ -54,34 +64,30 @@ export default function Home() {
     }
   };
 
-  // 监听price变化，测量price宽度并设置容器宽度
+  // 页面初始化时检查URL参数
   useEffect(() => {
-    if (price && priceRef.current) {
-      setPriceWidth(priceRef.current.offsetWidth);
-      // 计算合适的容器宽度：price宽度 + 额外空间（至少300px）
-      const newWidth = Math.max(priceRef.current.offsetWidth + 120, 300);
-      setContainerWidth(newWidth);
-    } else {
-      setPriceWidth(0);
-      // price不存在时，恢复到默认宽度
-      setContainerWidth(300);
+    const usernameFromUrl = searchParams.get("username");
+    if (usernameFromUrl) {
+      setUsername(usernameFromUrl);
+      // 自动执行检查
+      handleCheck(usernameFromUrl);
     }
-  }, [price]);
+  }, [searchParams]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-6">
-      <div className="flex items-center justify-center gap-2 flex-col my-auto sm:p-0 px-4 transition-all duration-300">
-        <h1 className="text-xl sm:text-3xl font-pp text-primary text-center mt-10">
+    <div className="w-full h-full flex flex-col items-center justify-start gap-6">
+      <div className="flex items-center justify-center gap-2 flex-col my-auto sm:p-0 px-2 transition-all duration-300 w-full">
+        <h1 className="text-xl sm:text-3xl font-pp text-primary text-center pt-10">
           Linkol Checker
         </h1>
         <span className="text-muted-foreground text-md sm:text-xl">
-          Check the score of any Twitter (𝕏) user
+          Check the price of any Twitter (𝕏) user
         </span>
         <div
           className="flex items-center justify-between gap-2 p-1 sm:p-2 border border-border rounded-xl sm:rounded-2xl shadow-md mt-4 sm:mt-10 transition-all duration-500 bg-background min-w-[300px] sm:min-w-[500px]"
-          style={{
-            width: `${containerWidth}px`,
-          }}
+          // style={{
+          //   width: `${containerWidth}px`,
+          // }}
         >
           <div className="flex items-center gap-1 w-full">
             <span className="sm:text-xl text-base">@</span>
@@ -99,6 +105,15 @@ export default function Home() {
                     setPrice(null);
                     setUsername("");
                     setShowPeopleResults(true);
+                    // 清除URL参数
+                    const newParams = new URLSearchParams(
+                      searchParams.toString(),
+                    );
+                    newParams.delete("username");
+                    const newUrl = newParams.toString()
+                      ? `?${newParams.toString()}`
+                      : window.location.pathname;
+                    router.replace(newUrl);
                   }}
                 />
               )}
@@ -106,7 +121,7 @@ export default function Home() {
           </div>
           <Button
             className="sm:rounded-xl rounded-lg text-md sm:text-lg !h-auto p-2 py-1 sm:py-2 gap-1 sm:gap-2"
-            onClick={handleCheck}
+            onClick={() => handleCheck()}
             disabled={isLoading}
           >
             {isLoading ? (
@@ -123,17 +138,10 @@ export default function Home() {
               className="w-full flex justify-center"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
+              // exit={{ opacity: 0, y: 50 }}
               transition={{ duration: 0.3, delay: 0.5 }}
             >
-              <div
-                ref={priceRef}
-                className="flex items-center justify-center gap-2 h-[200px] whitespace-nowrap w-[800px]"
-              >
-                <span className="text-2xl font-pp">
-                  Price: {price.current_value}
-                </span>
-              </div>
+              <KolChart data={price} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -142,10 +150,10 @@ export default function Home() {
       <AnimatePresence>
         {showPeopleResults && !price && (
           <motion.div
-            className="mt-auto w-full"
+            className={cn("mt-auto w-full", price && "hidden")}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
+            // exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
           >
             <AnimateOnView animation="fade-up" distance={10}>

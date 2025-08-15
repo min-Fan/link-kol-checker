@@ -2,22 +2,22 @@ let channel: BroadcastChannel | null = null;
 
 /** 所有支持的事件类型 */
 export enum ChannelEventType {
-  REFRESH_DATA = 'REFRESH_DATA',
-  LOGIN_STATUS = 'LOGIN_STATUS',
+  REFRESH_DATA = "REFRESH_DATA",
+  LOGIN_STATUS = "LOGIN_STATUS",
 }
 
 export enum LoginStatus {
-  PENDING = 'pending',
-  WAITING = 'waiting',
-  SUCCESS = 'success',
-  ERROR = 'error',
+  PENDING = "pending",
+  WAITING = "waiting",
+  SUCCESS = "success",
+  ERROR = "error",
 }
 
-export type LoginMethod = 'TwitterAuth' | 'TwitterPost';
+export type LoginMethod = "TwitterAuth" | "TwitterPost";
 
 /** 每个事件对应的 payload 类型定义 */
 export interface ChannelEventPayloadMap {
-  [ChannelEventType.REFRESH_DATA]: {resource: string};
+  [ChannelEventType.REFRESH_DATA]: { resource: string };
   [ChannelEventType.LOGIN_STATUS]: {
     status: LoginStatus;
     userInfo: any;
@@ -35,8 +35,8 @@ export interface ChannelEvent<T extends ChannelEventType = ChannelEventType> {
 }
 
 /** 初始化 Channel 实例（SSR 安全） */
-export function initChannel(channelName = 'my-channel') {
-  if (typeof window === 'undefined') return null;
+export function initChannel(channelName = "my-channel") {
+  if (typeof window === "undefined") return null;
   if (!channel) {
     channel = new BroadcastChannel(channelName);
   }
@@ -44,7 +44,10 @@ export function initChannel(channelName = 'my-channel') {
 }
 
 /** 发送事件 */
-export function postEvent<T extends ChannelEventType>(type: T, payload: ChannelEventPayloadMap[T]): string {
+export function postEvent<T extends ChannelEventType>(
+  type: T,
+  payload: ChannelEventPayloadMap[T],
+): string {
   const ch = initChannel();
   const message: ChannelEvent<T> = {
     type,
@@ -76,8 +79,8 @@ export function subscribe<T extends ChannelEventType = ChannelEventType>(
     listener(event as ChannelEvent<T>);
   };
 
-  ch.addEventListener('message', handler);
-  return () => ch.removeEventListener('message', handler);
+  ch.addEventListener("message", handler);
+  return () => ch.removeEventListener("message", handler);
 }
 
 /**
@@ -91,7 +94,7 @@ export function subscribeTo<T extends ChannelEventType>(
   handler: (payload: ChannelEventPayloadMap[T]) => void,
 ): () => void {
   return subscribe(
-    event => {
+    (event) => {
       if (event.type === type) {
         handler(event.payload);
       }

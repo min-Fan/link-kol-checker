@@ -43,7 +43,7 @@ export default function CanvasBackground({
       ctx: CanvasRenderingContext2D,
       x: number,
       y: number,
-      size: number
+      size: number,
     ) => {
       ctx.save();
       ctx.translate(x, y);

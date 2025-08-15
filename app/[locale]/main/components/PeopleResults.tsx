@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import PostView from "./PostView";
 import PostViewSkeleton from "./PostViewSkeleton";
 import { getPosts } from "@/app/libs/request";
+import { useSearchParams } from "next/navigation";
 
 export interface TwitterPost {
   /**
@@ -50,6 +51,7 @@ export interface User {
 }
 
 export default function PeopleResults() {
+  const searchParams = useSearchParams();
   const [postIds, setPostIds] = useState<string[]>([
     "1955879928337232130",
     "1955879928337232130",
@@ -73,7 +75,7 @@ export default function PeopleResults() {
       const promises = postIds.map((id) =>
         getPosts({
           tweet_id: id,
-        })
+        }),
       );
 
       const results = await Promise.all(promises);
@@ -99,8 +101,16 @@ export default function PeopleResults() {
   };
 
   useEffect(() => {
+    // 检查URL参数，如果有username参数就不请求数据
+    const usernameFromUrl = searchParams.get("username");
+    if (usernameFromUrl) {
+      setIsLoading(false);
+      setPosts([]);
+      return;
+    }
+
     getData();
-  }, []);
+  }, [searchParams]);
 
   const renderContent = () => {
     if (isLoading) {

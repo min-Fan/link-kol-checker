@@ -23,8 +23,8 @@ body,
 
 @layer base {
   :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.141 0.005 285.823);
+    --background: 0 0% 100%;
+    --foreground: 240 5.9% 10%;
 
     --card: 0 0% 100%;
 
@@ -34,9 +34,11 @@ body,
 
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: oklch(0.55 0.25 250);
+    --primary: 211 100% 50%;
 
     --primary-foreground: 0 0% 98%;
+
+    --color-primary: hsl(var(--primary));
 
     --secondary: 240 4.8% 95.9%;
 
@@ -73,8 +75,8 @@ body,
     --radius: 0.5rem;
   }
   .dark {
-    --background: oklch(0.141 0.005 285.823);
-    --foreground: oklch(0.985 0 0);
+    --background: 240 5.9% 10%;
+    --foreground: 0 0% 98%;
 
     --card: 240 10% 3.9%;
 
@@ -84,9 +86,11 @@ body,
 
     --popover-foreground: 0 0% 98%;
 
-    --primary: oklch(0.55 0.25 250);
+    --primary: 211 100% 50%;
 
     --primary-foreground: 240 5.9% 10%;
+
+    --color-primary: hsl(var(--primary));
 
     --secondary: 240 3.7% 15.9%;
 

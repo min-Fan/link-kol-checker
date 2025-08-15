@@ -94,11 +94,11 @@ const CanimatedPathSvg = ({
         // 设置 CSS 变量
         (path as SVGPathElement).style.setProperty(
           "--path-length",
-          `${length}`
+          `${length}`,
         );
         (path as SVGPathElement).style.setProperty(
           "--fill-color",
-          finalFillColor
+          finalFillColor,
         );
 
         // 设置 stroke 属性以启用路径动画
@@ -113,9 +113,8 @@ const CanimatedPathSvg = ({
         (path as SVGPathElement).style.strokeDashoffset = `${length}`;
 
         if (isInView) {
-          (
-            path as SVGPathElement
-          ).style.animation = `dashAndFill ${duration}s ${delay}s ease-in-out forwards`;
+          (path as SVGPathElement).style.animation =
+            `dashAndFill ${duration}s ${delay}s ease-in-out forwards`;
         } else {
           (path as SVGPathElement).style.animation = "none";
           (path as SVGPathElement).style.strokeDashoffset = `${length}`;
