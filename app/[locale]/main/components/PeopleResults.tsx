@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PostView from "./PostView";
 import PostViewSkeleton from "./PostViewSkeleton";
-import { getPosts } from "@/app/libs/request";
+import { getPostsList } from "@/app/libs/request";
 import { useSearchParams } from "next/navigation";
 
 export interface TwitterPost {
@@ -52,18 +52,6 @@ export interface User {
 
 export default function PeopleResults() {
   const searchParams = useSearchParams();
-  const [postIds, setPostIds] = useState<string[]>([
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-    "1955879928337232130",
-  ]);
   const [posts, setPosts] = useState<TwitterPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
@@ -71,26 +59,18 @@ export default function PeopleResults() {
   const getData = async () => {
     try {
       setIsLoading(true);
-      // 并发获取所有推文数据
-      const promises = postIds.map((id) =>
-        getPosts({
-          tweet_id: id,
-        }),
-      );
+      // 使用获取推文列表的接口
+      const response = await getPostsList();
 
-      const results = await Promise.all(promises);
-      const allPosts: TwitterPost[] = [];
+      if (response.code === 200 && Array.isArray(response.data)) {
+        setPosts(response.data);
+      } else if (response.code === 200 && response.data) {
+        // 如果返回的是单个对象而不是数组
+        setPosts([response.data]);
+      } else {
+        setPosts([]);
+      }
 
-      results.forEach((res) => {
-        if (res.code === 200 && Array.isArray(res.data)) {
-          allPosts.push(...res.data);
-        } else if (res.code === 200 && res.data) {
-          // 如果返回的是单个对象而不是数组
-          allPosts.push(res.data);
-        }
-      });
-
-      setPosts(allPosts);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

@@ -3,6 +3,7 @@ import request from "./request";
 export const ENDPOINT_URL = {
   POSTS_BY_IDS: "/kol/api/v4/tweet/",
   GET_PRICE: "/kol/api/v4/price/",
+  POSTS_LIST: "/kol/api/v4/tweets/",
 };
 
 /**
@@ -50,4 +51,9 @@ export interface Kol {
 }
 export const getPrice = async (params: IGetPriceParams) => {
   return request.get<IGetPriceData>(ENDPOINT_URL.GET_PRICE, { ...params });
+};
+
+// 获取推文列表
+export const getPostsList = async () => {
+  return request.get(ENDPOINT_URL.POSTS_LIST);
 };

@@ -192,8 +192,8 @@ export function CommLineChart({ data }: { data: any }) {
               data.current_value < data.bins[0]
                 ? data.bins[0]
                 : data.current_value > data.bins[data.bins.length - 1]
-                ? data.bins[data.bins.length - 1]
-                : data.current_value
+                  ? data.bins[data.bins.length - 1]
+                  : data.current_value
             }
             stroke="var(--color-primary)"
             strokeDasharray="5 5"
