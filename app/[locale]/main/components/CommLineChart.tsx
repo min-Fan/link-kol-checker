@@ -92,11 +92,11 @@ export function CommLineChart({ data }: { data: any }) {
 
     return (
       <g>
-        <defs>
+        {/* <defs>
           <clipPath id="avatarClip">
             <circle cx="20" cy="20" r="18" />
           </clipPath>
-        </defs>
+        </defs> */}
         {/* 头像背景圆圈 */}
         <circle
           cx={x}
@@ -106,15 +106,27 @@ export function CommLineChart({ data }: { data: any }) {
           stroke="hsl(var(--primary))"
           strokeWidth="2"
         />
-        {/* 头像图片，使用clipPath裁剪为圆形 */}
-        <image
+        <foreignObject x={x - 18} y="2" width="36" height="36">
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              overflow: "hidden",
+              backgroundImage: `url(${avatarBase64 || avatar.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+        </foreignObject>
+        {/* <image
           x={x - 18}
           y="2"
           width="36"
           height="36"
           href={avatarBase64 || avatar.src}
           clipPath="url(#avatarClip)"
-        />
+        /> */}
       </g>
     );
   };
@@ -126,7 +138,7 @@ export function CommLineChart({ data }: { data: any }) {
         accessibilityLayer
         data={processedData}
         margin={{
-          top: 12,
+          top: 40,
           left: 20,
           right: 20,
         }}
@@ -180,8 +192,8 @@ export function CommLineChart({ data }: { data: any }) {
               data.current_value < data.bins[0]
                 ? data.bins[0]
                 : data.current_value > data.bins[data.bins.length - 1]
-                  ? data.bins[data.bins.length - 1]
-                  : data.current_value
+                ? data.bins[data.bins.length - 1]
+                : data.current_value
             }
             stroke="var(--color-primary)"
             strokeDasharray="5 5"
