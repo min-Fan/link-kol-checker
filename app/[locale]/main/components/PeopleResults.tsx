@@ -120,9 +120,9 @@ export default function PeopleResults() {
           <h1 className="text-base sm:text-2xl font-pp text-center">
             People's Results
           </h1>
-          <div className="w-full flex items-center">
+          <div className="w-full flex items-stretch">
             <div
-              className="flex items-center gap-2 sm:gap-4 animate-scroll-left pl-2 sm:pl-4"
+              className="flex items-stretch gap-2 sm:gap-4 animate-scroll-left pl-2 sm:pl-4"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               style={{
@@ -132,7 +132,7 @@ export default function PeopleResults() {
               {renderContent()}
             </div>
             <div
-              className="flex items-center gap-2 sm:gap-4 animate-scroll-left pl-2 sm:pl-4"
+              className="flex items-stretch gap-2 sm:gap-4 animate-scroll-left pl-2 sm:pl-4"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               style={{

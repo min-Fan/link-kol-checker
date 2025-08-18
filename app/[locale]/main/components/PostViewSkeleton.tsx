@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PostViewSkeleton() {
   return (
-    <div className="text-md bg-background/80 border-border/50 box-border flex flex-col gap-2 rounded-2xl border p-4 shadow-sm backdrop-blur-sm animate-pulse bg-background w-[300px] min-h-[330px]">
+    <div className="text-md bg-background/80 border-border/50 box-border flex flex-col gap-2 rounded-2xl border p-4 shadow-sm backdrop-blur-sm animate-pulse w-[300px] h-full">
       {/* 头部：头像、用户信息、时间 */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex w-full items-center gap-2">
@@ -27,6 +27,7 @@ export default function PostViewSkeleton() {
         <div className="space-y-2">
           <div className="h-4 bg-gray-300 rounded w-full"></div>
           <div className="h-4 bg-gray-300 rounded w-4/5"></div>
+          <div className="h-4 bg-gray-300 rounded w-3/5"></div>
         </div>
 
         {/* 图片区域骨架 (模拟可能有图片) */}

@@ -163,7 +163,7 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex items-center justify-center relative z-1">
+      <div className="flex items-center justify-center relative z-1 pt-2">
         <span className="text-md text-muted-foreground flex items-center gap-0">
           Powered by <Logo className="w-4 h-4" />
           <a

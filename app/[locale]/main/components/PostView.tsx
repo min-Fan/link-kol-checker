@@ -64,7 +64,7 @@ export default function PostView({ post }: { post: TwitterPost }) {
     return null;
   };
   return (
-    <div className="text-md bg-background/80 border-border/50 box-border flex h-full flex-col gap-2 rounded-2xl border p-2 sm:p-4 shadow-sm backdrop-blur-sm bg-background w-[300px] min-h-[330px]">
+    <div className="text-md bg-background/80 border-border/50 box-border flex h-full flex-col gap-2 rounded-2xl border p-2 sm:p-4 shadow-sm backdrop-blur-sm w-[300px]">
       <div className="flex items-start justify-between gap-2">
         <div className="flex w-full items-center gap-2">
           <div className="h-10 w-10 overflow-hidden rounded-full">
@@ -137,11 +137,13 @@ export default function PostView({ post }: { post: TwitterPost }) {
           </span>
         </div>
       </div>
-      <div className="text-md w-full">
-        <p>{post?.content}</p>
-        {post?.medias && renderImages(post?.medias)}
+      <div className="text-md w-full flex-1 flex flex-col">
+        <div className="flex-1">
+          <p>{post?.content}</p>
+          {post?.medias && renderImages(post?.medias)}
+        </div>
         {post?.data && (
-          <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl  mt-2">
+          <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl mt-2">
             <h1 className="sm:text-base text-md font-bold text-center">
               @{post?.kol?.screen_name} linkol price{" "}
               <span className="text-primary font-bold">
@@ -157,7 +159,7 @@ export default function PostView({ post }: { post: TwitterPost }) {
                   : "Top "}
               {post?.leading_percentage}% )
             </p>
-            <div className="w-full">
+            <div className="w-full flex-1">
               <CommLineChart data={post} />
             </div>
           </div>
