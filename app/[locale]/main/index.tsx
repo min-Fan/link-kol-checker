@@ -169,7 +169,7 @@ export default function Home() {
           <a
             href="https://linkol.ai"
             target="_blank"
-            className="font-sf-bold cursor-pointer"
+            className="font-sf-bold cursor-pointer text-foreground hover:underline"
           >
             Linkol
           </a>
