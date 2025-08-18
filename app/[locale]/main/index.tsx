@@ -12,6 +12,7 @@ import { useToast } from "@/app/shadcn/hooks/use-toast";
 import KolChart from "./components/KolChart";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/app/shadcn/lib/utils";
+import { Logo } from "@/app/assets/svg";
 
 export default function Home() {
   const t = useTranslations("HomePage");
@@ -75,16 +76,16 @@ export default function Home() {
   }, [searchParams]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start gap-6">
+    <div className="w-full h-full flex flex-col items-center justify-start">
       <div className="flex items-center justify-center gap-2 flex-col my-auto sm:p-0 px-2 transition-all duration-300 w-full">
         <h1 className="text-xl sm:text-3xl font-pp text-primary text-center pt-10">
-          Linkol Checker
+          Tweet Value Checker
         </h1>
         <span className="text-muted-foreground text-md sm:text-xl">
-          Check the price of any Twitter (𝕏) user
+          AI that estimates the true commercial value of any Twitter (𝕏) post.
         </span>
         <div
-          className="flex items-center justify-between gap-2 p-1 sm:p-2 border border-border rounded-xl sm:rounded-2xl shadow-md mt-4 sm:mt-10 transition-all duration-500 bg-background min-w-[300px] sm:min-w-[500px]"
+          className="flex items-center justify-between gap-2 p-1 sm:p-2 border border-border rounded-xl sm:rounded-2xl shadow-md mt-4 sm:mt-10 transition-all duration-500 bg-background min-w-[300px] sm:min-w-[500px] mb-6"
           // style={{
           //   width: `${containerWidth}px`,
           // }}
@@ -93,7 +94,7 @@ export default function Home() {
             <span className="sm:text-xl text-base">@</span>
             <div className="w-full flex items-center justify-between gap-1">
               <Input
-                className="border-none text-base sm:text-xl w-full px-0 py-0 h-auto"
+                className="border-none text-base sm:text-xl w-full px-0 py-0 h-auto font-sf"
                 placeholder="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -107,7 +108,7 @@ export default function Home() {
                     setShowPeopleResults(true);
                     // 清除URL参数
                     const newParams = new URLSearchParams(
-                      searchParams.toString(),
+                      searchParams.toString()
                     );
                     newParams.delete("username");
                     const newUrl = newParams.toString()
@@ -162,6 +163,18 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+      <div className="flex items-center justify-center py-2 relative z-1">
+        <span className="text-md text-muted-foreground flex items-center gap-0">
+          Powered by <Logo className="w-4 h-4" />
+          <a
+            href="https://linkol.ai"
+            target="_blank"
+            className="font-sf-bold cursor-pointer"
+          >
+            Linkol
+          </a>
+        </span>
+      </div>
     </div>
   );
 }

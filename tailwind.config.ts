@@ -265,6 +265,8 @@ export default {
       fontFamily: {
         gt: "GT",
         pp: "PP",
+        sf: "SF",
+        "sf-bold": "SF-Bold",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
