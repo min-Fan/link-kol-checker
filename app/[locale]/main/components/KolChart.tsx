@@ -113,11 +113,11 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
         ref={chartRef}
         className="flex items-center justify-center gap-2 flex-col p-4 border bg-background border-border rounded-xl sm:rounded-2xl shadow-lg mt-2"
       >
-        <h1 className="sm:text-2xl text-xl font-bold ">
+        <h1 className="sm:text-2xl text-xl font-bold text-center">
           @{data.kol.screen_name} linkol price{" "}
           <span className="text-primary font-bold">${data.current_value}</span>
         </h1>
-        <p className="sm:text-base text-md text-muted-foreground">
+        <p className="sm:text-base text-md text-muted-foreground text-center">
           Leading other KOL ({" "}
           {data.leading_percentage >= 0 && data.leading_percentage < 30
             ? "Bottom "

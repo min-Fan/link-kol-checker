@@ -4,6 +4,7 @@ export const ENDPOINT_URL = {
   POSTS_BY_IDS: "/kol/api/v4/tweet/",
   GET_PRICE: "/kol/api/v4/price/",
   POSTS_LIST: "/kol/api/v4/tweets/",
+  GET_INDEX_DATA: "/kol/api/v4/index/",
 };
 
 /**
@@ -56,4 +57,9 @@ export const getPrice = async (params: IGetPriceParams) => {
 // 获取推文列表
 export const getPostsList = async () => {
   return request.get(ENDPOINT_URL.POSTS_LIST);
+};
+
+// 首页数据
+export const getIndexData = async () => {
+  return request.get(ENDPOINT_URL.GET_INDEX_DATA);
 };

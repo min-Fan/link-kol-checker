@@ -5,6 +5,7 @@ import { copy, formatDateYMDHMS, formatNumberKMB } from "@/app/libs/utils";
 import { useTranslations } from "next-intl";
 import { TwitterPost } from "./PeopleResults";
 import { useToast } from "@/app/shadcn/hooks/use-toast";
+import { CommLineChart } from "./CommLineChart";
 
 export default function PostView({ post }: { post: TwitterPost }) {
   const t = useTranslations("common");
@@ -68,8 +69,8 @@ export default function PostView({ post }: { post: TwitterPost }) {
         <div className="flex w-full items-center gap-2">
           <div className="h-10 w-10 overflow-hidden rounded-full">
             <img
-              src={post?.user?.profile_image_url || ""}
-              alt={post?.user?.screen_name}
+              src={post?.kol?.profile_image_url || ""}
+              alt={post?.kol?.screen_name}
               className="size-full"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
@@ -82,7 +83,7 @@ export default function PostView({ post }: { post: TwitterPost }) {
               <span
                 className="text-base font-bold truncate max-w-[100px] cursor-pointer"
                 onClick={() => {
-                  copy(post?.user?.name).then((success) => {
+                  copy(post?.kol?.name).then((success) => {
                     if (success) {
                       toast({
                         title: t("copy_success"),
@@ -97,12 +98,12 @@ export default function PostView({ post }: { post: TwitterPost }) {
                   });
                 }}
               >
-                {post?.user?.name}
+                {post?.kol?.name}
               </span>
               <span
                 className="text-muted-foreground cursor-pointer text-sm truncate max-w-[80px]"
                 onClick={() => {
-                  copy(post?.user?.screen_name).then((success) => {
+                  copy(post?.kol?.screen_name).then((success) => {
                     if (success) {
                       toast({
                         title: t("copy_success"),
@@ -117,7 +118,7 @@ export default function PostView({ post }: { post: TwitterPost }) {
                   });
                 }}
               >
-                @{post?.user?.screen_name}
+                @{post?.kol?.screen_name}
               </span>
             </div>
           </div>
@@ -126,7 +127,7 @@ export default function PostView({ post }: { post: TwitterPost }) {
           <span
             className="text-xl font-bold cursor-pointer"
             onClick={() => {
-              window.open(`https://x.com/${post?.user?.screen_name}`, "_blank");
+              window.open(`https://x.com/${post?.kol?.screen_name}`, "_blank");
             }}
           >
             𝕏
@@ -139,6 +140,28 @@ export default function PostView({ post }: { post: TwitterPost }) {
       <div className="text-md w-full">
         <p>{post?.content}</p>
         {post?.medias && renderImages(post?.medias)}
+        {post?.data && (
+          <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl  mt-2">
+            <h1 className="sm:text-base text-md font-bold text-center">
+              @{post?.kol?.screen_name} linkol price{" "}
+              <span className="text-primary font-bold">
+                ${post?.current_value}
+              </span>
+            </h1>
+            <p className="sm:text-sm text-sm text-muted-foreground text-center">
+              Leading other KOL ({" "}
+              {post?.leading_percentage >= 0 && post?.leading_percentage < 30
+                ? "Bottom "
+                : post?.leading_percentage > 30 && post?.leading_percentage < 70
+                  ? "Middle "
+                  : "Top "}
+              {post?.leading_percentage}% )
+            </p>
+            <div className="w-full">
+              <CommLineChart data={post} />
+            </div>
+          </div>
+        )}
       </div>
       <div className="text-muted-foreground mt-auto flex items-center justify-between gap-1">
         <div className="flex items-center space-x-1">

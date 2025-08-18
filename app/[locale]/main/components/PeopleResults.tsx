@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PostView from "./PostView";
 import PostViewSkeleton from "./PostViewSkeleton";
-import { getPostsList } from "@/app/libs/request";
+import { getIndexData, getPostsList } from "@/app/libs/request";
 import { useSearchParams } from "next/navigation";
 
 export interface TwitterPost {
@@ -25,6 +25,18 @@ export interface TwitterPost {
   repost: number;
   user: User;
   views: number;
+  data: number[];
+  bins: number[];
+  kol: Kol;
+  current_bin: number;
+  current_value: number;
+  leading_percentage: number;
+}
+
+export interface Kol {
+  name: string;
+  profile_image_url: string;
+  screen_name: string;
 }
 
 export interface User {
@@ -60,7 +72,7 @@ export default function PeopleResults() {
     try {
       setIsLoading(true);
       // 使用获取推文列表的接口
-      const response = await getPostsList();
+      const response = await getIndexData();
 
       if (response.code === 200 && Array.isArray(response.data)) {
         setPosts(response.data);
