@@ -108,7 +108,7 @@ export default function Home() {
                     setShowPeopleResults(true);
                     // 清除URL参数
                     const newParams = new URLSearchParams(
-                      searchParams.toString()
+                      searchParams.toString(),
                     );
                     newParams.delete("username");
                     const newUrl = newParams.toString()

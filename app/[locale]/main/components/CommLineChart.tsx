@@ -36,33 +36,6 @@ export function CommLineChart({ data }: { data: any }) {
       value: index === 0 ? 0 : data?.data?.[index - 1] || 0,
     })) || [];
 
-  // 只有当 current_value 在合理范围内且不在 bins 中时，才添加这个点
-  if (
-    data?.current_value !== undefined &&
-    data?.bins &&
-    !data?.bins?.includes(data.current_value) &&
-    data.current_value >= data.bins[0] &&
-    data.current_value <= data.bins[data.bins.length - 1]
-  ) {
-    // 计算 current_value 对应的 value
-    let valueForCurrentPrice = 0;
-    if (
-      data?.current_bin !== undefined &&
-      data?.data?.[data.current_bin] !== undefined
-    ) {
-      valueForCurrentPrice = data.data[data.current_bin];
-    }
-
-    const currentValuePoint = {
-      price: data.current_value,
-      value: valueForCurrentPrice,
-    };
-
-    // 将点插入到正确的位置（保持价格排序）
-    processedData.push(currentValuePoint);
-    processedData.sort((a: any, b: any) => a.price - b.price);
-  }
-
   // 当组件加载或数据变化时，转换图片为base64
   useEffect(() => {
     const convertImageToBase64 = async () => {
@@ -164,6 +137,9 @@ export function CommLineChart({ data }: { data: any }) {
           axisLine={false}
           tickMargin={8}
           tickFormatter={(value) => value}
+          scale="linear"
+          domain={[data.bins[0], data.bins[data.bins.length - 1]]}
+          type="number"
         />
         {/* <ChartTooltip
           cursor={false}
@@ -188,17 +164,12 @@ export function CommLineChart({ data }: { data: any }) {
         {/* 显示current_value位置的竖线虚线和KOL头像 */}
         {data?.current_value !== undefined && data?.bins && (
           <ReferenceLine
-            x={
-              data.current_value < data.bins[0]
-                ? data.bins[0]
-                : data.current_value > data.bins[data.bins.length - 1]
-                  ? data.bins[data.bins.length - 1]
-                  : data.current_value
-            }
+            x={data.current_value}
             stroke="var(--color-primary)"
             strokeDasharray="5 5"
             strokeWidth={2}
             label={<CustomLabel />}
+            ifOverflow="extendDomain"
           />
         )}
       </AreaChart>

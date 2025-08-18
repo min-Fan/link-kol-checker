@@ -1,7 +1,6 @@
 import React from "react";
 import CanvasBackground from "@/app/components/background/CanvasBackground";
 import { ScrollArea } from "@/app/shadcn/components/ui/scroll-area";
-import { Logo } from "@/app/assets/svg";
 
 export default function MainLayout({
   children,
