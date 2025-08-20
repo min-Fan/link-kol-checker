@@ -138,11 +138,11 @@ export default function PostView({ post }: { post: TwitterPost }) {
         </div>
       </div>
       <div className="text-md w-full flex-1 flex flex-col">
-        <div className="flex-1">
+        {/* <div className="flex-1">
           <p>{post?.content}</p>
           {post?.medias && renderImages(post?.medias)}
-        </div>
-        {post?.data && (
+        </div> */}
+        {/* {post?.data && ( */}
           <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl mt-2">
             <div className="flex items-center justify-center flex-col">
               <h1 className="sm:text-base text-md font-bold text-center">
@@ -165,7 +165,7 @@ export default function PostView({ post }: { post: TwitterPost }) {
               <CommLineChart data={post} />
             </div>
           </div>
-        )}
+        {/* )} */}
       </div>
       <div className="text-muted-foreground mt-auto flex items-center justify-between gap-1">
         <div className="flex items-center space-x-1">
