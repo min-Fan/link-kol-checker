@@ -79,10 +79,10 @@ export default function Home() {
     <div className="w-full h-full flex flex-col items-center justify-start">
       <div className="flex items-center justify-center gap-2 flex-col my-auto sm:p-0 px-2 transition-all duration-300 w-full">
         <h1 className="text-xl sm:text-3xl font-pp text-primary text-center pt-10">
-          Tweet Value Checker
+          What's One Tweet Really Worth?
         </h1>
         <span className="text-muted-foreground text-md sm:text-xl">
-          AI that estimates the true commercial value of any Twitter (𝕏) post.
+          AI puts a price on your post — test it now and you're still early.
         </span>
         <div
           className="flex items-center justify-between gap-2 p-1 sm:p-2 border border-border rounded-xl sm:rounded-2xl shadow-md mt-4 sm:mt-10 transition-all duration-500 bg-background min-w-[300px] sm:min-w-[500px] mb-6"
@@ -108,7 +108,7 @@ export default function Home() {
                     setShowPeopleResults(true);
                     // 清除URL参数
                     const newParams = new URLSearchParams(
-                      searchParams.toString(),
+                      searchParams.toString()
                     );
                     newParams.delete("username");
                     const newUrl = newParams.toString()

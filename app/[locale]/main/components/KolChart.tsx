@@ -13,7 +13,7 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
 
   const shareOnX = () => {
     const url = `https://x.com/intent/post?text=My linkol price: ${encodeURIComponent(
-      window.location.href,
+      window.location.href
     )}`;
     window.open(url, "_blank");
   };
@@ -111,24 +111,23 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
     <div className="flex flex-col gap-2 w-full sm:w-auto">
       <div
         ref={chartRef}
-        className="flex items-center justify-center gap-2 flex-col p-4 border bg-background border-border rounded-xl sm:rounded-2xl shadow-lg mt-2"
+        className="flex items-center justify-center gap-2 flex-col p-4 pb-2 border bg-background border-border rounded-xl sm:rounded-2xl shadow-lg mt-2"
       >
-        <h1 className="sm:text-2xl text-xl font-bold text-center">
-          @{data.kol.screen_name} linkol price{" "}
-          <span className="text-primary font-bold">${data.current_value}</span>
+        <h1 className="sm:text-2xl text-xl font-bold text-center font-sf">
+          @{data.kol.screen_name}'s tweet value:{" "}
+          <span className="text-primary font-bold font-sf-bold">
+            ${data.current_value}
+          </span>
         </h1>
         <p className="sm:text-base text-md text-muted-foreground text-center">
-          Leading other KOL ({" "}
-          {data.leading_percentage >= 0 && data.leading_percentage < 30
-            ? "Bottom "
-            : data.leading_percentage > 30 && data.leading_percentage < 70
-              ? "Middle "
-              : "Top "}
-          {data.leading_percentage}% )
+          AI ranks you above {data.leading_percentage}% of KOLs
         </p>
         <div className="w-full sm:w-[600px]">
           <CommLineChart data={data} />
         </div>
+        <p className="text-muted-foreground text-sm text-center">
+          price.linkol.ai
+        </p>
       </div>
       <div className="w-full flex items-center justify-between gap-2 pb-4 flex-wrap">
         <div className="flex items-center gap-2 flex-wrap">
@@ -158,13 +157,24 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
             )}
             <span>{isDownloading ? "Downloading..." : "Download"}</span>
           </Button>
+          <Button
+            variant="outline"
+            className="rounded-full flex items-center h-auto py-1 text-md"
+            onClick={shareOnX}
+          >
+            <ShareIcon className="w-4 h-4" />
+            <span>Share on 𝕏</span>
+          </Button>
         </div>
         <Button
           className="rounded-full flex items-center h-auto py-1 text-md"
-          onClick={shareOnX}
+          onClick={() => {
+            window.open("https://x.com/linkol_ai", "_blank");
+          }}
         >
-          <ShareIcon className="w-4 h-4" />
-          <span>Share on 𝕏</span>
+          <p>
+            Made by <span className="font-bold font-sf-bold">LINKOL</span>
+          </p>
         </Button>
       </div>
     </div>

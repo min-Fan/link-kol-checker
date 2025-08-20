@@ -144,19 +144,21 @@ export default function PostView({ post }: { post: TwitterPost }) {
         </div>
         {post?.data && (
           <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl mt-2">
-            <h1 className="sm:text-base text-md font-bold text-center">
-              @{post?.kol?.screen_name} linkol price{" "}
+            <div className="flex items-center justify-center flex-col">
+              <h1 className="sm:text-base text-md font-bold text-center">
+                @{post?.kol?.screen_name} linkol price{" "}
+              </h1>
               <span className="text-primary font-bold">
                 ${post?.current_value}
               </span>
-            </h1>
+            </div>
             <p className="sm:text-sm text-sm text-muted-foreground text-center">
               Leading other KOL ({" "}
               {post?.leading_percentage >= 0 && post?.leading_percentage < 30
                 ? "Bottom "
                 : post?.leading_percentage > 30 && post?.leading_percentage < 70
-                  ? "Middle "
-                  : "Top "}
+                ? "Middle "
+                : "Top "}
               {post?.leading_percentage}% )
             </p>
             <div className="w-full flex-1">
