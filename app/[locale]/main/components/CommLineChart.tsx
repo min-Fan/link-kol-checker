@@ -29,12 +29,19 @@ const chartConfig = {
 export function CommLineChart({ data }: { data: any }) {
   const [avatarBase64, setAvatarBase64] = useState<string>("");
 
-  // 处理数据格式：price来自bins，value来自data，并在第一位补0
-  let processedData =
-    data?.bins?.map((price: any, index: number) => ({
-      price,
-      value: index === 0 ? 0 : data?.data?.[index - 1] || 0,
-    })) || [];
+  // 写死的7点正态分布数据，X轴从0到10000
+  const fixedData = [
+    { price: 100, value: 0 },
+    { price: 900, value: 50 },
+    { price: 1700, value: 230 },
+    { price: 2500, value: 310 }, // 最高点（第四个点，正中间）
+    { price: 3300, value: 230 },
+    { price: 4100, value: 50 },
+    { price: 4900, value: 20 },
+    { price: 10000, value: 0 },
+  ];
+
+  let processedData = fixedData;
 
   // 当组件加载或数据变化时，转换图片为base64
   useEffect(() => {
@@ -138,7 +145,6 @@ export function CommLineChart({ data }: { data: any }) {
           tickMargin={8}
           tickFormatter={(value) => value}
           scale="linear"
-          domain={[data.bins[0], data.bins[data.bins.length - 1]]}
           type="number"
         />
         {/* <ChartTooltip
@@ -147,7 +153,8 @@ export function CommLineChart({ data }: { data: any }) {
         /> */}
         <Area
           dataKey="value"
-          type="natural"
+          type="monotone"
+          // type="natural"
           fill="url(#fillValue)"
           stroke="var(--color-primary)"
           strokeWidth={3}
@@ -162,7 +169,7 @@ export function CommLineChart({ data }: { data: any }) {
           }}
         />
         {/* 显示current_value位置的竖线虚线和KOL头像 */}
-        {data?.current_value !== undefined && data?.bins && (
+        {data?.current_value !== undefined && (
           <ReferenceLine
             x={data.current_value}
             stroke="var(--color-primary)"
