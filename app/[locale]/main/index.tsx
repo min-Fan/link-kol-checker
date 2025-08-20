@@ -97,7 +97,12 @@ export default function Home() {
                 className="border-none text-base sm:text-xl w-full px-0 py-0 h-auto font-sf"
                 placeholder="username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value.replace(/\s/g, ""))}
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    handleCheck();
+                  }
+                }}
               />
               {username && (
                 <X
