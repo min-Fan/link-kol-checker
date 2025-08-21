@@ -346,7 +346,7 @@ export default function RankList() {
                 </TableCell>
                 <TableCell>
                   <span className="sm:text-md text-sm text-primary font-sf-bold">
-                    ${item.price}
+                    ${Number(item.price).toLocaleString() || 0}
                   </span>
                 </TableCell>
                 <TableCell>
