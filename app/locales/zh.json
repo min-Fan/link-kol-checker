@@ -4,6 +4,19 @@
   },
   "common": {
     "copy_success": "复制成功",
-    "copy_failed": "复制失败"
+    "copy_failed": "复制失败",
+    "error_rank_list": "获取排行榜数据失败",
+    "error_retry": "请稍后再试"
+  },
+  "rank": {
+    "rank": "排名",
+    "name": "名称",
+    "price": "价格",
+    "followers": "粉丝数",
+    "showing": "显示",
+    "of": "共",
+    "items": "条",
+    "no_data": "暂无数据",
+    "page": "第"
   }
 }

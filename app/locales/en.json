@@ -4,6 +4,19 @@
   },
   "common": {
     "copy_success": "Copy success",
-    "copy_failed": "Copy failed"
+    "copy_failed": "Copy failed",
+    "error_rank_list": "Failed to get rank list",
+    "error_retry": "Please try again later"
+  },
+  "rank": {
+    "rank": "Rank",
+    "name": "Name",
+    "price": "Price",
+    "followers": "Followers",
+    "showing": "Showing",
+    "of": "of",
+    "items": "items",
+    "no_data": "No data available",
+    "page": "Page"
   }
 }

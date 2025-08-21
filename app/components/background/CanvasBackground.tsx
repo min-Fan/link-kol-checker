@@ -10,7 +10,7 @@ interface CanvasBackgroundProps {
 
 export default function CanvasBackground({
   className,
-  iconSize = 40,
+  iconSize = 60,
   scrollSpeed = 10,
   spacing,
 }: CanvasBackgroundProps = {}) {
@@ -51,21 +51,38 @@ export default function CanvasBackground({
       // 设置颜色为白色透明度
       ctx.fillStyle = "rgba(0, 0, 0, 0.02)";
 
-      // 根据 SVG 路径绘制图标形状
-      const scale = size / 16; // SVG 原始尺寸是 16x16
+      // 根据 SVG 原始尺寸 1920x1920 计算缩放比例
+      const scale = size / 1920;
       ctx.scale(scale, scale);
 
       ctx.beginPath();
-      // SVG 路径: M1.33333 1.33333H5.7778V5.7778H10.2222V10.2222H14.6667V14.6667H1.33333V1.33333Z
-      ctx.moveTo(1.33333, 1.33333);
-      ctx.lineTo(5.7778, 1.33333);
-      ctx.lineTo(5.7778, 5.7778);
-      ctx.lineTo(10.2222, 5.7778);
-      ctx.lineTo(10.2222, 10.2222);
-      ctx.lineTo(14.6667, 10.2222);
-      ctx.lineTo(14.6667, 14.6667);
-      ctx.lineTo(1.33333, 14.6667);
+
+      // 第一个路径: M743.14,1204.2l311.62-539.74c6.91-11.97,6.95-26.7.1-38.7l-61.19-107.22c-14.96-25.91-52.36-25.91-67.33,0l-487.3,844.03c-14.96,25.91,3.74,58.31,33.66,58.31h974.6c29.92,0,48.62-32.39,33.66-58.31l-46.56-80.64c-6.94-12.03-19.78-19.44-33.66-19.44h-623.94c-29.92,0-48.62-32.39-33.66-58.31Z
+      ctx.moveTo(743.14, 1204.2);
+      ctx.lineTo(1054.76, 664.46);
+      ctx.quadraticCurveTo(1061.67, 652.49, 1061.71, 637.76);
+      ctx.lineTo(1000.52, 530.54);
+      ctx.quadraticCurveTo(985.56, 504.63, 948.16, 504.63);
+      ctx.lineTo(460.86, 1348.66);
+      ctx.quadraticCurveTo(445.9, 1374.57, 479.6, 1406.97);
+      ctx.lineTo(1454.2, 1406.97);
+      ctx.quadraticCurveTo(1484.12, 1406.97, 1502.82, 1374.58);
+      ctx.lineTo(1456.26, 1293.94);
+      ctx.quadraticCurveTo(1449.32, 1281.91, 1435.44, 1274.5);
+      ctx.lineTo(811.5, 1274.5);
+      ctx.quadraticCurveTo(781.58, 1274.5, 762.88, 1306.89);
       ctx.closePath();
+
+      // 第二个路径: M1244.98,1072.18l-167.66,290.4c-14.96,25.91,3.74,58.31,33.66,58.31h335.32c29.92,0,48.62-32.39,33.66-58.31l-167.66-290.4c-14.96-25.91-52.36-25.91-67.33,0Z
+      ctx.moveTo(1244.98, 1072.18);
+      ctx.lineTo(1077.32, 1362.58);
+      ctx.quadraticCurveTo(1062.36, 1388.49, 1096.06, 1420.89);
+      ctx.lineTo(1431.38, 1420.89);
+      ctx.quadraticCurveTo(1461.3, 1420.89, 1479.98, 1388.5);
+      ctx.lineTo(1312.32, 1098.1);
+      ctx.quadraticCurveTo(1297.36, 1072.19, 1259.96, 1072.19);
+      ctx.closePath();
+
       ctx.fill();
 
       ctx.restore();
