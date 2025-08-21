@@ -3,7 +3,7 @@ import React from "react";
 
 export default function footer() {
   return (
-    <div className="flex items-center justify-center z-1 pt-2">
+    <div className="flex items-center h-10 justify-center z-1">
       <span className="text-md text-muted-foreground flex items-center gap-0">
         Powered by <Logo className="w-4 h-4" />
         <a
