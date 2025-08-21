@@ -76,8 +76,8 @@ export default function Home() {
   }, [searchParams]);
 
   return (
-    <div className="w-full flex flex-col items-center justify-start">
-      <div className="flex items-center justify-center gap-2 flex-col my-auto sm:p-0 px-2 transition-all duration-300 w-full">
+    <div className="w-full min-h-screen flex flex-col items-center justify-start">
+      <div className="flex items-center justify-center gap-2 flex-col sm:p-0 px-2 transition-all duration-300 w-full">
         <h1 className="text-xl sm:text-3xl font-pp text-primary text-center pt-10">
           What's One Tweet Really Worth?
         </h1>

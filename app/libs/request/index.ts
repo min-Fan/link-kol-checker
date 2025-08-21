@@ -5,6 +5,7 @@ export const ENDPOINT_URL = {
   GET_PRICE: "/kol/api/v4/price/",
   POSTS_LIST: "/kol/api/v4/tweets/",
   GET_INDEX_DATA: "/kol/api/v4/index/",
+  GET_RANK_LIST: "/kol/api/v5/top/kols/",
 };
 
 /**
@@ -62,4 +63,49 @@ export const getPostsList = async () => {
 // 首页数据
 export const getIndexData = async () => {
   return request.get(ENDPOINT_URL.GET_INDEX_DATA);
+};
+
+// 排行榜数据
+export interface IGetRankListData {
+  /** 页码 */
+  page?: number;
+  /** 每页条数 */
+  size?: number;
+}
+export interface IGetRankListResponse {
+  current_page: number;
+  list: IGetRankListList[];
+  page_range: number[];
+  total: number;
+}
+export interface IGetRankListList {
+  /**
+   * 粉丝
+   */
+  followers_count: number;
+  /**
+   * id
+   */
+  id: string;
+  /**
+   * @前的名字
+   */
+  name: string;
+  /**
+   * 价格
+   */
+  price: number | number;
+  /**
+   * 头像
+   */
+  profile_image_url: string;
+  /**
+   * @后的名字
+   */
+  screen_name: string;
+}
+export const rankList = async (params: IGetRankListData) => {
+  return request.get<IGetRankListResponse>(ENDPOINT_URL.GET_RANK_LIST, {
+    ...params,
+  });
 };
