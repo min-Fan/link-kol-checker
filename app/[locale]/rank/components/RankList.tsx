@@ -24,6 +24,9 @@ import { Top1, Top2, Top3, TwitterIcon } from "@/app/assets/svg";
 import { useToast } from "@/app/shadcn/hooks/use-toast";
 import { useTranslations } from "next-intl";
 import { rankList } from "@/app/libs/request";
+import { Input } from "@/app/shadcn/components/ui/input";
+import { Button } from "@/app/shadcn/components/ui/button";
+import { SearchIcon, X } from "lucide-react";
 
 export default function RankList() {
   const { toast } = useToast();
@@ -35,7 +38,7 @@ export default function RankList() {
   const [totalItems, setTotalItems] = useState(0);
   const [pageSize] = useState(100);
   const [loading, setLoading] = useState(true);
-
+  const [search, setSearch] = useState("");
   const renderRank = (rank: number) => {
     if (rank === 1) {
       return (
@@ -63,12 +66,13 @@ export default function RankList() {
     }
   };
 
-  const getRankList = async (page: number = 1) => {
+  const getRankList = async (page: number = 1, kw: string = "") => {
     try {
       setLoading(true);
       const res: any = await rankList({
         page,
         size: pageSize,
+        kw,
       });
       if (res.code === 200) {
         setList(res.data.list);
@@ -237,8 +241,48 @@ export default function RankList() {
   }, []);
 
   return (
-    <div className="w-full px-2 sm:px-0 sm:w-[740px] flex flex-col items-center justify-start gap-4 border-t border-border">
-      <Table>
+    <div className="w-full px-2 sm:px-0 sm:w-[740px] flex flex-col items-center justify-start gap-2 sm:gap-4">
+      <div className="flex items-center justify-between w-full">
+        <span className="sm:text-lg text-md text-foreground font-sf">
+          Total: {formatNumberKMB(totalItems)}
+        </span>
+        <div className="flex items-center justify-center border border-border rounded-full group gap-1 p-2 py-1 hover:border-primary">
+          <div className="flex items-center justify-center gap-2 w-[140px] sm:w-[200px]">
+            <Input
+              type="text"
+              className="border-none font-sf pr-0 pl-1 !h-auto !py-0 sm:text-md text-sm"
+              placeholder="Search Kol"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setCurrentPage(1);
+                  getRankList(1, search);
+                }
+              }}
+            />
+            {search && (
+              <X
+                className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-pointer"
+                onClick={() => {
+                  setSearch("");
+                  setCurrentPage(1);
+                  getRankList(1, "");
+                }}
+              />
+            )}
+          </div>
+
+          <SearchIcon
+            className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-pointer"
+            onClick={() => {
+              setCurrentPage(1);
+              getRankList(1, search);
+            }}
+          />
+        </div>
+      </div>
+      <Table className="border-t border-border w-full">
         <TableHeader>
           <TableRow>
             <TableHead>
@@ -313,7 +357,7 @@ export default function RankList() {
                       <span
                         className="sm:text-sm text-xs text-muted-foreground font-sf cursor-pointer"
                         onClick={() => {
-                          copy("john_doe").then((success) => {
+                          copy(item.screen_name).then((success) => {
                             if (success) {
                               toast({
                                 title: t("copy_success"),
