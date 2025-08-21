@@ -40,26 +40,26 @@ export default function RankList() {
     if (rank === 1) {
       return (
         <div className="flex items-center justify-start gap-2">
-          <span className="text-md">Top </span>
-          <Top1 className="w-8 h-8" />
+          <span className="sm:text-md text-sm">Top </span>
+          <Top1 className="w-6 sm:w-8 h-6 sm:h-8" />
         </div>
       );
     } else if (rank === 2) {
       return (
         <div className="flex items-center justify-start gap-2">
-          <span className="text-md">Top </span>
-          <Top2 className="w-8 h-8" />
+          <span className="sm:text-md text-sm">Top </span>
+          <Top2 className="w-6 sm:w-8 h-6 sm:h-8" />
         </div>
       );
     } else if (rank === 3) {
       return (
         <div className="flex items-center justify-start gap-2">
-          <span className="text-md">Top </span>
-          <Top3 className="w-8 h-8" />
+          <span className="sm:text-md text-sm">Top </span>
+          <Top3 className="w-6 sm:w-8 h-6 sm:h-8" />
         </div>
       );
     } else {
-      return <span className="text-md">{rank}</span>;
+      return <span className="sm:text-md text-sm">{rank}</span>;
     }
   };
 
@@ -242,16 +242,22 @@ export default function RankList() {
         <TableHeader>
           <TableRow>
             <TableHead>
-              <span className="text-md text-foreground">{tRank("rank")}</span>
+              <span className="sm:text-md text-sm text-foreground">
+                {tRank("rank")}
+              </span>
             </TableHead>
             <TableHead className="w-[50%]">
-              <span className="text-md text-foreground">{tRank("name")}</span>
+              <span className="sm:text-md text-sm text-foreground">
+                {tRank("name")}
+              </span>
             </TableHead>
             <TableHead>
-              <span className="text-md text-foreground">{tRank("price")}</span>
+              <span className="sm:text-md text-sm text-foreground">
+                {tRank("price")}
+              </span>
             </TableHead>
             <TableHead>
-              <span className="text-md text-foreground">
+              <span className="sm:text-md text-sm text-foreground">
                 {tRank("followers")}
               </span>
             </TableHead>
@@ -259,26 +265,26 @@ export default function RankList() {
         </TableHeader>
         <TableBody>
           {loading ? (
-            // 使用Skeleton组件显示加载状态
+            // 使用Skeleton组件显示加载状态，支持移动端适配
             Array.from({ length: pageSize }).map((_, index) => (
               <TableRow key={`skeleton-${index}`}>
                 <TableCell>
-                  <Skeleton className="w-8 h-6" />
+                  <Skeleton className="w-6 h-4 sm:w-8 sm:h-6" />
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Skeleton className="w-10 h-10 rounded-full" />
-                    <div className="flex flex-col gap-2">
-                      <Skeleton className="w-24 h-4" />
-                      <Skeleton className="w-20 h-3" />
+                    <Skeleton className="w-8 h-8 sm:w-10 sm:h-10 rounded-full" />
+                    <div className="flex flex-col gap-1 sm:gap-2">
+                      <Skeleton className="w-20 h-3 sm:w-24 sm:h-4" />
+                      <Skeleton className="w-16 h-2 sm:w-20 sm:h-3" />
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Skeleton className="w-16 h-6" />
+                  <Skeleton className="w-12 h-4 sm:w-16 sm:h-6" />
                 </TableCell>
                 <TableCell>
-                  <Skeleton className="w-20 h-6" />
+                  <Skeleton className="w-16 h-4 sm:w-20 sm:h-6" />
                 </TableCell>
               </TableRow>
             ))
@@ -290,7 +296,7 @@ export default function RankList() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-between w-10 h-10 rounded-full overflow-hidden">
+                    <div className="flex items-center justify-between w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden">
                       <img
                         src={item.profile_image_url}
                         alt="avatar"
@@ -301,11 +307,11 @@ export default function RankList() {
                       />
                     </div>
                     <div className="flex flex-col items-start justify-start">
-                      <span className="text-md text-foreground font-sf">
+                      <span className="sm:text-md text-sm text-foreground font-sf">
                         {item.name}
                       </span>
                       <span
-                        className="text-sm text-muted-foreground font-sf cursor-pointer"
+                        className="sm:text-sm text-xs text-muted-foreground font-sf cursor-pointer"
                         onClick={() => {
                           copy("john_doe").then((success) => {
                             if (success) {
@@ -327,7 +333,7 @@ export default function RankList() {
                     </div>
                     <div className="flex items-center justify-between">
                       <TwitterIcon
-                        className="w-6 h-6 text-foreground cursor-pointer"
+                        className="w-4 h-4 sm:w-6 sm:h-6 text-foreground cursor-pointer"
                         onClick={() => {
                           window.open(
                             `https://x.com/${item.screen_name}`,
@@ -339,12 +345,12 @@ export default function RankList() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-md text-primary font-sf-bold">
+                  <span className="sm:text-md text-sm text-primary font-sf-bold">
                     ${item.price}
                   </span>
                 </TableCell>
                 <TableCell>
-                  <span className="text-md">
+                  <span className="sm:text-md text-sm">
                     {formatNumberKMB(item.followers_count)}
                   </span>
                 </TableCell>
@@ -354,7 +360,7 @@ export default function RankList() {
             // 空状态
             <TableRow>
               <TableCell colSpan={4} className="text-center py-8">
-                <span className="text-muted-foreground">
+                <span className="sm:text-md text-sm text-muted-foreground">
                   {tRank("no_data")}
                 </span>
               </TableCell>
@@ -365,22 +371,41 @@ export default function RankList() {
 
       {/* 分页组件 */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between w-full mt-4">
-          <Pagination>
-            <PaginationContent>
+        <div className="flex flex-col sm:flex-row items-center justify-between w-full mt-4 gap-4">
+          <Pagination className="w-full sm:w-auto">
+            <PaginationContent className="flex-wrap justify-center sm:justify-start">
               <PaginationItem>
                 <PaginationPrevious
                   onClick={() => handlePageChange(currentPage - 1)}
-                  className={`cursor-pointer ${
+                  className={`cursor-pointer min-w-[44px] h-[44px] sm:min-w-[32px] sm:h-[32px] flex items-center justify-center ${
                     currentPage <= 1 ? "pointer-events-none opacity-50" : ""
                   }`}
                 />
               </PaginationItem>
-              {renderPaginationItems()}
+
+              {/* 移动端简化分页显示 */}
+              <div className="hidden sm:flex">{renderPaginationItems()}</div>
+
+              {/* 移动端显示当前页和总页数 */}
+              <div className="sm:hidden flex items-center gap-2">
+                <PaginationItem>
+                  <PaginationLink
+                    isActive={true}
+                    className="flex items-center justify-center w-6 h-6"
+                  >
+                    {currentPage}
+                  </PaginationLink>
+                </PaginationItem>
+                <span className="text-muted-foreground text-sm">/</span>
+                <span className="text-muted-foreground text-sm">
+                  {totalPages}
+                </span>
+              </div>
+
               <PaginationItem>
                 <PaginationNext
                   onClick={() => handlePageChange(currentPage + 1)}
-                  className={`cursor-pointer ${
+                  className={`cursor-pointer min-w-[44px] h-[44px] sm:min-w-[32px] sm:h-[32px] flex items-center justify-center ${
                     currentPage >= totalPages
                       ? "pointer-events-none opacity-50"
                       : ""
