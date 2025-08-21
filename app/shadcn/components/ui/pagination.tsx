@@ -54,7 +54,7 @@ const PaginationLink = ({
       }),
       "hover:bg-primary/5",
       isActive && "",
-      className
+      className,
     )}
     {...props}
   />

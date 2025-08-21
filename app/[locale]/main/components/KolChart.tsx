@@ -12,7 +12,7 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
   const [isCopying, setIsCopying] = useState(false);
 
   const shareOnX = () => {
-    const str = `AI calculated my tweet at $${data.current_value}. check yours 👉 ${window.location.href}`
+    const str = `AI calculated my tweet at $${data.current_value}. check yours 👉 ${window.location.href}`;
     const url = `https://x.com/intent/post?text=${encodeURIComponent(str)}`;
     window.open(url, "_blank");
   };

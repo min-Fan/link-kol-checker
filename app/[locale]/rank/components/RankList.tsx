@@ -116,7 +116,7 @@ export default function RankList() {
             >
               {i}
             </PaginationLink>
-          </PaginationItem>
+          </PaginationItem>,
         );
       }
     } else {
@@ -133,13 +133,13 @@ export default function RankList() {
               >
                 {i}
               </PaginationLink>
-            </PaginationItem>
+            </PaginationItem>,
           );
         }
         items.push(
           <PaginationItem key="ellipsis1">
             <PaginationEllipsis />
-          </PaginationItem>
+          </PaginationItem>,
         );
         items.push(
           <PaginationItem key={totalPages}>
@@ -149,7 +149,7 @@ export default function RankList() {
             >
               {totalPages}
             </PaginationLink>
-          </PaginationItem>
+          </PaginationItem>,
         );
       } else if (currentPage >= totalPages - 2) {
         // 当前页在后几页
@@ -161,12 +161,12 @@ export default function RankList() {
             >
               1
             </PaginationLink>
-          </PaginationItem>
+          </PaginationItem>,
         );
         items.push(
           <PaginationItem key="ellipsis1">
             <PaginationEllipsis />
-          </PaginationItem>
+          </PaginationItem>,
         );
         for (let i = totalPages - 3; i <= totalPages; i++) {
           items.push(
@@ -178,7 +178,7 @@ export default function RankList() {
               >
                 {i}
               </PaginationLink>
-            </PaginationItem>
+            </PaginationItem>,
           );
         }
       } else {
@@ -191,12 +191,12 @@ export default function RankList() {
             >
               1
             </PaginationLink>
-          </PaginationItem>
+          </PaginationItem>,
         );
         items.push(
           <PaginationItem key="ellipsis1">
             <PaginationEllipsis />
-          </PaginationItem>
+          </PaginationItem>,
         );
         for (let i = currentPage - 1; i <= currentPage + 1; i++) {
           items.push(
@@ -208,13 +208,13 @@ export default function RankList() {
               >
                 {i}
               </PaginationLink>
-            </PaginationItem>
+            </PaginationItem>,
           );
         }
         items.push(
           <PaginationItem key="ellipsis2">
             <PaginationEllipsis />
-          </PaginationItem>
+          </PaginationItem>,
         );
         items.push(
           <PaginationItem key={totalPages}>
@@ -224,7 +224,7 @@ export default function RankList() {
             >
               {totalPages}
             </PaginationLink>
-          </PaginationItem>
+          </PaginationItem>,
         );
       }
     }
@@ -331,7 +331,7 @@ export default function RankList() {
                         onClick={() => {
                           window.open(
                             `https://x.com/${item.screen_name}`,
-                            "_blank"
+                            "_blank",
                           );
                         }}
                       />

@@ -1,5 +1,5 @@
-const HOME = '/';
-const RANK = '/rank';
+const HOME = "/";
+const RANK = "/rank";
 
 const PagesRoute = {
   HOME,

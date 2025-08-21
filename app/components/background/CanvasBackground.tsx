@@ -56,7 +56,7 @@ export default function CanvasBackground({
       ctx.scale(scale, scale);
 
       ctx.beginPath();
-      
+
       // 第一个路径: M743.14,1204.2l311.62-539.74c6.91-11.97,6.95-26.7.1-38.7l-61.19-107.22c-14.96-25.91-52.36-25.91-67.33,0l-487.3,844.03c-14.96,25.91,3.74,58.31,33.66,58.31h974.6c29.92,0,48.62-32.39,33.66-58.31l-46.56-80.64c-6.94-12.03-19.78-19.44-33.66-19.44h-623.94c-29.92,0-48.62-32.39-33.66-58.31Z
       ctx.moveTo(743.14, 1204.2);
       ctx.lineTo(1054.76, 664.46);
@@ -72,7 +72,7 @@ export default function CanvasBackground({
       ctx.lineTo(811.5, 1274.5);
       ctx.quadraticCurveTo(781.58, 1274.5, 762.88, 1306.89);
       ctx.closePath();
-      
+
       // 第二个路径: M1244.98,1072.18l-167.66,290.4c-14.96,25.91,3.74,58.31,33.66,58.31h335.32c29.92,0,48.62-32.39,33.66-58.31l-167.66-290.4c-14.96-25.91-52.36-25.91-67.33,0Z
       ctx.moveTo(1244.98, 1072.18);
       ctx.lineTo(1077.32, 1362.58);
@@ -82,7 +82,7 @@ export default function CanvasBackground({
       ctx.lineTo(1312.32, 1098.1);
       ctx.quadraticCurveTo(1297.36, 1072.19, 1259.96, 1072.19);
       ctx.closePath();
-      
+
       ctx.fill();
 
       ctx.restore();

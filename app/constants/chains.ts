@@ -1,4 +1,4 @@
-import { Chain, base, baseSepolia } from 'wagmi/chains';
+import { Chain, base, baseSepolia } from "wagmi/chains";
 
 // 扩展 Chain 类型以包含 iconUrl
 interface ExtendedChain extends Chain {
@@ -12,21 +12,21 @@ export const chains: { [key: string]: ExtendedChain } = {
 };
 
 export const chain: { [key: string]: ExtendedChain } = {
-  '8453': base,
-  '84532': baseSepolia,
-  '32383': {
+  "8453": base,
+  "84532": baseSepolia,
+  "32383": {
     id: 32383,
-    name: 'Agent Chain',
-    iconUrl: 'https://scan.agtchain.net/static-img/5.png',
-    iconBackground: '#fff',
-    nativeCurrency: { name: 'AGT', symbol: 'AGT', decimals: 18 },
+    name: "Agent Chain",
+    iconUrl: "https://scan.agtchain.net/static-img/5.png",
+    iconBackground: "#fff",
+    nativeCurrency: { name: "AGT", symbol: "AGT", decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://rpc.agtchain.net'] },
+      default: { http: ["https://rpc.agtchain.net"] },
     },
     blockExplorers: {
       default: {
-        name: 'Agent Chain Explorer',
-        url: 'https://scan.agtchain.net',
+        name: "Agent Chain Explorer",
+        url: "https://scan.agtchain.net",
       },
     },
     contracts: {},
@@ -40,21 +40,23 @@ export const getChain = (chainId: number) => {
 export const getExplorerLink = (
   chainId: number,
   data: string,
-  type: 'transaction' | 'address' = 'transaction'
+  type: "transaction" | "address" = "transaction",
 ) => {
-  if (!data || !chainId) return '';
+  if (!data || !chainId) return "";
   const currentChain = chain[chainId];
   if (!currentChain?.blockExplorers?.default?.url) {
-    return '';
+    return "";
   }
 
   const baseUrl = currentChain.blockExplorers.default.url;
-  const path = type === 'transaction' ? 'tx' : 'address';
+  const path = type === "transaction" ? "tx" : "address";
   return `${baseUrl}/${path}/${data}`;
 };
 
 // 支持的链配置
-export const SUPPORTED_CHAINS = [chain[process.env.NEXT_PUBLIC_CHAIN_ID as string]] as const;
+export const SUPPORTED_CHAINS = [
+  chain[process.env.NEXT_PUBLIC_CHAIN_ID as string],
+] as const;
 
 // 获取支持的链ID数组
 export const SUPPORTED_CHAIN_IDS = SUPPORTED_CHAINS.map((chain) => chain.id);

@@ -143,28 +143,28 @@ export default function PostView({ post }: { post: TwitterPost }) {
           {post?.medias && renderImages(post?.medias)}
         </div> */}
         {/* {post?.data && ( */}
-          <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl mt-2">
-            <div className="flex items-center justify-center flex-col">
-              <h1 className="sm:text-base text-md font-bold text-center">
-                @{post?.kol?.screen_name} linkol price{" "}
-              </h1>
-              <span className="text-primary font-bold">
-                ${post?.current_value}
-              </span>
-            </div>
-            <p className="sm:text-sm text-sm text-muted-foreground text-center">
-              Leading other KOL ({" "}
-              {post?.leading_percentage >= 0 && post?.leading_percentage < 30
-                ? "Bottom "
-                : post?.leading_percentage > 30 && post?.leading_percentage < 70
+        <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl mt-2">
+          <div className="flex items-center justify-center flex-col">
+            <h1 className="sm:text-base text-md font-bold text-center">
+              @{post?.kol?.screen_name} linkol price{" "}
+            </h1>
+            <span className="text-primary font-bold">
+              ${post?.current_value}
+            </span>
+          </div>
+          <p className="sm:text-sm text-sm text-muted-foreground text-center">
+            Leading other KOL ({" "}
+            {post?.leading_percentage >= 0 && post?.leading_percentage < 30
+              ? "Bottom "
+              : post?.leading_percentage > 30 && post?.leading_percentage < 70
                 ? "Middle "
                 : "Top "}
-              {post?.leading_percentage}% )
-            </p>
-            <div className="w-full flex-1">
-              <CommLineChart data={post} />
-            </div>
+            {post?.leading_percentage}% )
+          </p>
+          <div className="w-full flex-1">
+            <CommLineChart data={post} />
           </div>
+        </div>
         {/* )} */}
       </div>
       <div className="text-muted-foreground mt-auto flex items-center justify-between gap-1">
