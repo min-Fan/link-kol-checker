@@ -100,7 +100,7 @@ export default function RankList() {
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages && page !== currentPage) {
-      getRankList(page);
+      getRankList(page, search);
     }
   };
 
