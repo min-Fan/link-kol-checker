@@ -76,12 +76,12 @@ export default function Home() {
   }, [searchParams]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start">
+    <div className="w-full flex flex-col items-center justify-start">
       <div className="flex items-center justify-center gap-2 flex-col my-auto sm:p-0 px-2 transition-all duration-300 w-full">
         <h1 className="text-xl sm:text-3xl font-pp text-primary text-center pt-10">
           What's One Tweet Really Worth?
         </h1>
-        <span className="text-muted-foreground text-md sm:text-xl">
+        <span className="text-muted-foreground text-md sm:text-xl text-center">
           AI puts a price on your post — test it now and you're still early.
         </span>
         <div
@@ -168,18 +168,6 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex items-center justify-center relative z-1 pt-2">
-        <span className="text-md text-muted-foreground flex items-center gap-0">
-          Powered by <Logo className="w-4 h-4" />
-          <a
-            href="https://linkol.ai"
-            target="_blank"
-            className="font-sf-bold cursor-pointer text-foreground hover:underline"
-          >
-            Linkol
-          </a>
-        </span>
-      </div>
     </div>
   );
 }

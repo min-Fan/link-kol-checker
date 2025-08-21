@@ -1,4 +1,4 @@
-import Linkol from "./logo.svg";
 import Logo from "./linkol-logoicon-light.svg";
+import LogoHorizontalPrimary from "./linkol-horizontal-primary.svg";
 
-export { Linkol, Logo };
+export { Logo, LogoHorizontalPrimary };
