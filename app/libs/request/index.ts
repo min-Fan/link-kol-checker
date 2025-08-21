@@ -71,6 +71,10 @@ export interface IGetRankListData {
   page?: number;
   /** 每页条数 */
   size?: number;
+  /**
+   * 搜索关键字
+   */
+  kw?: string;
 }
 export interface IGetRankListResponse {
   current_page: number;
