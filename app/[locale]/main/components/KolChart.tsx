@@ -119,7 +119,14 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
           </span>
         </h1>
         <p className="sm:text-base text-md text-muted-foreground text-center">
-          AI ranks you above {data.leading_percentage}% of KOLs
+          AI ranks you above {(() => {
+            const currentValue = data.current_value;
+            if (currentValue < 100) return 0;
+            if (currentValue >= 5000) return 100;
+            // 计算在100-5000范围内的百分比
+            const percentage = Math.round(((currentValue - 100) / (5000 - 100)) * 100);
+            return percentage;
+          })()}% of KOLs
         </p>
         <div className="w-full sm:w-[600px]">
           <CommLineChart data={data} />
