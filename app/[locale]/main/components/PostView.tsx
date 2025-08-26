@@ -146,13 +146,13 @@ export default function PostView({ post }: { post: TwitterPost }) {
         <div className="flex items-center justify-center gap-2 flex-col p-2 border bg-background rounded-xl sm:rounded-2xl mt-2">
           <div className="flex items-center justify-center flex-col">
             <h1 className="sm:text-base text-md font-bold text-center">
-              @{post?.kol?.screen_name} linkol price{" "}
+              @{post?.kol?.screen_name}'s tweet value:{" "}
             </h1>
             <span className="text-primary font-bold">
               ${post?.current_value}
             </span>
           </div>
-          <p className="sm:text-sm text-sm text-muted-foreground text-center">
+          {/* <p className="sm:text-sm text-sm text-muted-foreground text-center">
             Leading other KOL ({" "}
             {post?.leading_percentage >= 0 && post?.leading_percentage < 30
               ? "Bottom "
@@ -160,7 +160,7 @@ export default function PostView({ post }: { post: TwitterPost }) {
                 ? "Middle "
                 : "Top "}
             {post?.leading_percentage}% )
-          </p>
+          </p> */}
           <div className="w-full flex-1">
             <CommLineChart data={post} />
           </div>

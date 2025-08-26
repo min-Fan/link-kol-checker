@@ -118,7 +118,7 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
             ${data.current_value}
           </span>
         </h1>
-        <p className="sm:text-base text-md text-muted-foreground text-center">
+        {/* <p className="sm:text-base text-md text-muted-foreground text-center">
           AI ranks you above{" "}
           {(() => {
             const currentValue = data.current_value;
@@ -131,7 +131,7 @@ export default function KolChart({ data }: { data: IGetPriceData }) {
             return percentage;
           })()}
           % of KOLs
-        </p>
+        </p> */}
         <div className="w-full sm:w-[600px]">
           <CommLineChart data={data} />
         </div>
