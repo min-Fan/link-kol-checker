@@ -12,6 +12,9 @@ body,
     display: none;
   }
 }
+html {
+  font-size: 16px;
+}
 * {
   padding: 0;
   margin: 0;
@@ -23,8 +26,8 @@ body,
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 5.9% 10%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
     --card: 0 0% 100%;
 
@@ -75,8 +78,8 @@ body,
     --radius: 0.5rem;
   }
   .dark {
-    --background: 240 5.9% 10%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
     --card: 240 10% 3.9%;
 
@@ -128,10 +131,10 @@ body,
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 font-gt;
+    @apply border-border outline-ring/50 font-kyiv;
   }
   body {
-    @apply bg-background text-foreground font-gt;
+    @apply bg-background text-foreground font-kyiv;
   }
   .scroll-area > div > div {
     display: block !important;
