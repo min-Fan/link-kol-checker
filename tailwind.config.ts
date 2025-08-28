@@ -267,6 +267,7 @@ export default {
         pp: "PP",
         sf: "SF",
         "sf-bold": "SF-Bold",
+        kyiv: "KyivTypeSerif",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

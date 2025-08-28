@@ -167,7 +167,8 @@ export default function PostView({ post }: { post: TwitterPost }) {
         </div>
         {/* )} */}
       </div>
-      <div className="text-muted-foreground mt-auto flex items-center justify-between gap-1">
+
+      {/* <div className="text-muted-foreground mt-auto flex items-center justify-between gap-1">
         <div className="flex items-center space-x-1">
           <MessageCircle className="h-4 w-4" />
           <span>{formatNumberKMB(post?.replay) || 0}</span>
@@ -187,7 +188,8 @@ export default function PostView({ post }: { post: TwitterPost }) {
           <ChartNoAxesColumn className="relative z-10 h-4 w-4" />
           <span>{formatNumberKMB(post?.views || 0)}</span>
         </div>
-      </div>
+      </div> */}
+
     </div>
   );
 }
