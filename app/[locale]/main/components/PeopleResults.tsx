@@ -4,6 +4,8 @@ import PostView from "./PostView";
 import PostViewSkeleton from "./PostViewSkeleton";
 import { getIndexData, getPostsList } from "@/app/libs/request";
 import { useSearchParams } from "next/navigation";
+import CardView from "./CardView";
+import CardViewSkeleton from "./CardViewSkeleton";
 
 export interface TwitterPost {
   /**
@@ -104,42 +106,45 @@ export default function PeopleResults() {
     getData();
   }, [searchParams]);
 
-  const renderContent = () => {
+  const renderContent = (n: number) => {
     if (isLoading) {
       return Array.from({ length: 10 }, (_, index) => (
-        <PostViewSkeleton key={`skeleton-${index}`} />
+        <CardViewSkeleton key={`card-skeleton-${index}`} />
       ));
     }
-    return posts.map((post, index) => <PostView key={index} post={post} />);
+    return posts.map((post, index) => (
+      <CardView
+        key={index + post.created_at + n}
+        data={post}
+        className="w-[200px]"
+      />
+    ));
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full overflow-hidden">
+    <div className="flex flex-col gap-4 w-full overflow-hidden z-10">
       {(isLoading || posts.length > 0) && (
         <>
-          <h1 className="text-base sm:text-2xl font-pp text-center">
-            People's Results
-          </h1>
           <div className="w-full flex items-stretch">
             <div
-              className="flex items-stretch gap-2 sm:gap-4 animate-scroll-left pl-2 sm:pl-4"
+              className="flex items-stretch gap-2 sm:gap-6 animate-scroll-left pl-2 sm:pl-4"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               style={{
                 animationPlayState: isPaused ? "paused" : "running",
               }}
             >
-              {renderContent()}
+              {renderContent(1)}
             </div>
             <div
-              className="flex items-stretch gap-2 sm:gap-4 animate-scroll-left pl-2 sm:pl-4"
+              className="flex items-stretch gap-2 sm:gap-6 animate-scroll-left pl-2 sm:pl-4"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               style={{
                 animationPlayState: isPaused ? "paused" : "running",
               }}
             >
-              {renderContent()}
+              {renderContent(2)}
             </div>
           </div>
         </>

@@ -10,7 +10,7 @@ import Nav from "./components/nav";
 import WagmiProviderContext from "../context/WagmiProviderContext";
 import { MiniKitContextProvider } from "../providers/MiniKitProvider";
 import { Metadata } from "next";
-
+import PrivyProviderContext from "../context/PrivyProvider";
 
 export default async function LocaleLayout({
   children,
@@ -28,16 +28,18 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <WagmiProviderContext>
             <MiniKitContextProvider>
-              <ScrollArea className="bg-background flex w-full h-screen flex-col bg-[radial-gradient(66.14%_90.55%_at_49.89%_100%,rgba(0,122,255,0.10)_0%,rgba(0,122,255,0.00)_100%)] shadow-[0px 4px 6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[30px]">
-                <div className="absolute inset-0 z-[0] w-full h-full">
+              <PrivyProviderContext>
+                <ScrollArea className="bg-background flex w-full h-screen flex-col bg-[radial-gradient(66.14%_90.55%_at_49.89%_100%,rgba(0,122,255,0.10)_0%,rgba(0,122,255,0.00)_100%)] shadow-[0px 4px 6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[30px]">
+                  {/* <div className="absolute inset-0 z-[0] w-full h-full">
                   <CanvasBackground />
-                </div>
-                <div className="relative z-[0] w-full">
+                </div> */}
+                  {/* <div className="relative z-[0] w-full h-full flex flex-col items-center justify-start"> */}
                   <Nav />
                   {children}
                   <Footer />
-                </div>
-              </ScrollArea>
+                  {/* </div> */}
+                </ScrollArea>
+              </PrivyProviderContext>
             </MiniKitContextProvider>
           </WagmiProviderContext>
           <Toaster />
@@ -51,19 +53,20 @@ export async function generateMetadata(): Promise<Metadata> {
   const URL = process.env.NEXT_PUBLIC_URL as string;
   return {
     title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
-    description: 'Linkol Checker',
+    description: "Linkol Checker",
     other: {
-      'fc:frame': JSON.stringify({
-        version: '1',
+      "fc:frame": JSON.stringify({
+        version: "1",
         imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE,
         button: {
           title: `Launch ${process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME}`,
           action: {
-            type: 'launch_frame',
+            type: "launch_frame",
             name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
             url: URL,
             splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE,
-            splashBackgroundColor: process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR,
+            splashBackgroundColor:
+              process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR,
           },
         },
       }),
