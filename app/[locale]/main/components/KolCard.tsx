@@ -46,7 +46,7 @@ export default function KolCard({
           </div>
 
           {/* 用户头像 */}
-          <div className="bg-white !rounded-md overflow-hidden flex items-center justify-center w-[140px] h-[140px]">
+          <div className="!rounded-md overflow-hidden flex items-center justify-center w-[140px] h-[140px]">
             <img
               id="user-avatar"
               src={
@@ -54,14 +54,32 @@ export default function KolCard({
                 defaultAvatar.src
               }
               alt="User Avatar"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover !rounded-sm"
             />
           </div>
         </div>
 
         {/* 品牌名称 */}
         <div className="text-white text-center font-kyiv">
-          <div id="brand-name" className="text-xl font-bold mb-1">
+          <div
+            id="brand-name"
+            className="text-xl font-bold mb-1 truncate max-w-[230px] text-ellipsis text-center whitespace-nowrap cursor-pointer"
+            onClick={() => {
+              copy(data?.kol?.name).then((success) => {
+                if (success) {
+                  toast({
+                    title: t("copy_success"),
+                    variant: "default",
+                  });
+                } else {
+                  toast({
+                    title: t("copy_failed"),
+                    variant: "destructive",
+                  });
+                }
+              });
+            }}
+          >
             {data?.kol?.name}
           </div>
           <div
@@ -92,13 +110,17 @@ export default function KolCard({
       <div className="flex justify-center flex-col items-center mt-5 pb-20">
         <div
           id="price"
-          className="text-white text-4xl font-bold leading-none mb-1 font-kyiv"
+          className="text-white text-4xl font-bold leading-none mb-2 font-kyiv"
         >
           ${data?.current_value?.toLocaleString() || "0"}
         </div>
-        <span className="text-sm text-primary scale-75 leading-none">
-          Single Tweet Value by AI
-        </span>
+        <div className="flex items-center justify-center">
+          <span className="text-xs text-primary !scale-90">Single</span>
+          <span className="text-xs text-primary !scale-90">Tweet</span>
+          <span className="text-xs text-primary !scale-90">Value</span>
+          <span className="text-xs text-primary !scale-90">By</span>
+          <span className="text-xs text-primary !scale-90">AI</span>
+        </div>
       </div>
     </div>
   );

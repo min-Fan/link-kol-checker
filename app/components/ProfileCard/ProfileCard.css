@@ -62,7 +62,7 @@
 
 .pc-card {
   height: 80svh;
-  max-height: 450px;
+  max-height: 480px;
   display: grid;
   aspect-ratio: 0.718;
   border-radius: var(--card-radius);
@@ -420,7 +420,7 @@
 @media (max-width: 768px) {
   .pc-card {
     height: 70svh;
-    max-height: 450px;
+    max-height: 480px;
   }
 
   .pc-details {
@@ -468,7 +468,7 @@
 @media (max-width: 480px) {
   .pc-card {
     height: 60svh;
-    max-height: 450px;
+    max-height: 480px;
   }
 
   .pc-details {

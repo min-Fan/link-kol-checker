@@ -78,19 +78,20 @@ export default function Home() {
         setShowPeopleResults(false);
       }, 500);
 
-      const res = await getPrice({ screen_name: targetUsername });
+      const res: any = await getPrice({ screen_name: targetUsername });
       if (res.code === 200 && res.data) {
         setPrice(res.data);
       } else {
         toast({
           title: "Failed to check",
-          description: res.message,
+          description: res.msg,
         });
       }
     } catch (error) {
       toast({
         title: "Failed to check",
-        description: "Please try again",
+        description:
+          "This username can’t be analyzed. It may not exist or is not public. Please try another one.",
       });
     } finally {
       setIsLoading(false);
@@ -100,7 +101,7 @@ export default function Home() {
   const handleReset = () => {
     // 先清除价格数据，触发退出动画
     setPrice(null);
-    
+
     // 延迟一点时间再更新其他状态，让退出动画有时间完成
     setTimeout(() => {
       setUsername("");
@@ -140,12 +141,12 @@ export default function Home() {
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -50, scale: 0.95 }}
-              transition={{ 
+              transition={{
                 duration: 0.5,
                 ease: "easeInOut",
                 opacity: { duration: 0.3 },
                 y: { duration: 0.5 },
-                scale: { duration: 0.4 }
+                scale: { duration: 0.4 },
               }}
             >
               <h1 className="text-xl sm:text-3xl text-center pt-10 font-[840]">
@@ -157,10 +158,10 @@ export default function Home() {
               </span>
               <div className="flex flex-col items-center justify-between gap-2 p-1 sm:p-2 shadow-md mt-4 sm:mt-10 transition-all duration-500 min-w-[300px] sm:min-w-[400px] mb-6">
                 <div className="flex items-center justify-center gap-1 w-full border border-foreground p-4 bg-background/5 backdrop-blur-sm">
-                  <span className="sm:text-base text-sm font-sf">@</span>
+                  <span className="sm:text-base text-base font-sf">@</span>
                   <div className="flex items-center justify-between gap-1">
                     <Input
-                      className="border-none text-sm sm:text-base w-auto px-0 py-0 h-auto"
+                      className="border-none text-base sm:text-base w-auto px-0 py-0 h-auto"
                       placeholder="Enter Twitter handle"
                       value={username}
                       onChange={(e) =>
@@ -203,18 +204,19 @@ export default function Home() {
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -50, scale: 0.95 }}
-              transition={{ 
+              transition={{
                 duration: 0.5,
                 ease: "easeInOut",
                 opacity: { duration: 0.3 },
                 y: { duration: 0.5 },
-                scale: { duration: 0.4 }
+                scale: { duration: 0.4 },
               }}
             >
               <KolCardView data={price} onReset={handleReset} />
             </motion.div>
           )}
-
+        </AnimatePresence>
+        <AnimatePresence mode="wait" initial={false}>
           {showPeopleResults && !price && (
             <motion.div
               key="people-results"
@@ -222,12 +224,12 @@ export default function Home() {
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 50, scale: 0.95 }}
-              transition={{ 
+              transition={{
                 duration: 0.6,
                 ease: "easeInOut",
                 opacity: { duration: 0.4 },
                 y: { duration: 0.6 },
-                scale: { duration: 0.5 }
+                scale: { duration: 0.5 },
               }}
             >
               <AnimateOnView animation="fade-up" distance={10}>

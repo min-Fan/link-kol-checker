@@ -199,3 +199,6 @@ export const fileToBase64 = (file: File): Promise<string> => {
     reader.readAsDataURL(file);
   });
 };
+
+// 导出域名工具函数
+export { getCurrentDomain, getCurrentUrl, getCurrentProtocol } from './domain';

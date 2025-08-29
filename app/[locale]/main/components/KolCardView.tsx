@@ -1,14 +1,27 @@
 import { IGetPriceData } from "@/app/libs/request";
 import React, { useRef, useState } from "react";
 import { Button } from "@/app/shadcn/components/ui/button";
-import { CopyIcon, DownloadIcon, ShareIcon, Loader2Icon, RefreshCcw } from "lucide-react";
+import {
+  CopyIcon,
+  DownloadIcon,
+  ShareIcon,
+  Loader2Icon,
+  RefreshCcw,
+} from "lucide-react";
 import html2canvas from "html2canvas";
 import { toast } from "@/app/shadcn/hooks/use-toast";
 import KolCard from "./KolCard";
 import ProfileCard from "@/app/components/ProfileCard/ProfileCard";
 import { Logo, TwitterX } from "@/app/assets/svg";
+import DownloadCard from "./DownloadCard";
 
-export default function KolCardView({ data, onReset }: { data: IGetPriceData; onReset: () => void }) {
+export default function KolCardView({
+  data,
+  onReset,
+}: {
+  data: IGetPriceData;
+  onReset: () => void;
+}) {
   const chartRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
@@ -109,11 +122,16 @@ export default function KolCardView({ data, onReset }: { data: IGetPriceData; on
   };
 
   return (
-    <div className="flex flex-col gap-10 w-full sm:w-auto">
+    <div className="flex flex-col justify-center items-center gap-10 w-full sm:w-auto">
       <h1 className="text-center sm:text-4xl text-2xl font-bold">
         Your Tweet Value
       </h1>
-      <div ref={chartRef} className="flex items-center justify-center flex-col">
+      <div className="flex items-center justify-center flex-col">
+        <DownloadCard
+          data={data}
+          className="w-[800px] h-[800px] fixed top-[-200%] left-[-200%]"
+          ref={chartRef}
+        />
         <ProfileCard
           avatarUrl={data.kol.profile_image_url}
           iconUrl="https://check.linkol.fun/linkol-logoicon-dark.png"
@@ -124,7 +142,7 @@ export default function KolCardView({ data, onReset }: { data: IGetPriceData; on
           data={data}
         />
       </div>
-      <div className="w-full flex items-center justify-between gap-2 pb-4 flex-wrap">
+      <div className="w-full flex items-center justify-center gap-2 pb-4 flex-wrap">
         <div className="flex items-center gap-4 flex-wrap justify-center">
           <Button
             className="flex items-center py-1 text-md !h-10"
@@ -141,7 +159,7 @@ export default function KolCardView({ data, onReset }: { data: IGetPriceData; on
             disabled={isCopying}
           >
             {isCopying ? (
-              <Loader2Icon className="w-6 h-6 mr-2" />
+              <Loader2Icon className="w-6 h-6 mr-2 animate-spin" />
             ) : (
               <CopyIcon className="w-6 h-6" />
             )}
@@ -154,7 +172,7 @@ export default function KolCardView({ data, onReset }: { data: IGetPriceData; on
             disabled={isDownloading}
           >
             {isDownloading ? (
-              <Loader2Icon className="w-6 h-6 mr-2" />
+              <Loader2Icon className="w-6 h-6 mr-2 animate-spin" />
             ) : (
               <DownloadIcon className="w-6 h-6" />
             )}

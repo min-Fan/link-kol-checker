@@ -24,6 +24,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           <WagmiProviderContext>
@@ -53,7 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const URL = process.env.NEXT_PUBLIC_URL as string;
   return {
     title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
-    description: "Linkol Checker",
+    description: "Tweet Value Checker",
     other: {
       "fc:frame": JSON.stringify({
         version: "1",

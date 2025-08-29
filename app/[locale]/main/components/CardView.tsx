@@ -49,7 +49,7 @@ export default function CardView({
           </div>
 
           {/* 用户头像 */}
-          <div className="bg-white rounded-sm overflow-hidden flex items-center justify-center w-[93px] h-[93px]">
+          <div className="rounded-sm overflow-hidden flex items-center justify-center w-[93px] h-[93px]">
             <img
               id="user-avatar"
               src={
@@ -58,6 +58,9 @@ export default function CardView({
               }
               alt="User Avatar"
               className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = defaultAvatar.src;
+              }}
             />
           </div>
         </div>
