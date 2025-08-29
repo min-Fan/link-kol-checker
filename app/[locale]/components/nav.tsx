@@ -1,6 +1,8 @@
-import { Logo } from "@/app/assets/svg";
+"use client";
+
 import { Link } from "@/app/i18n/routing";
 import React from "react";
+import UserInfo from "./userInfo";
 
 export default function nav() {
   return (
@@ -25,6 +27,8 @@ export default function nav() {
               </span>
             </div>
           </Link> */}
+
+          <UserInfo />
         </div>
       </div>
     </div>

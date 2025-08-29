@@ -262,7 +262,7 @@ export default function FaultyTerminal({
   tint = "#ffffff",
   mouseReact = true,
   mouseStrength = 0.2,
-  dpr = Math.min(window.devicePixelRatio || 1, 2),
+  dpr,
   pageLoadAnimation = true,
   brightness = 1,
   className,
@@ -286,6 +286,18 @@ export default function FaultyTerminal({
     [dither],
   );
 
+  // 安全地获取设备像素比，避免 SSR 错误
+  const [devicePixelRatio, setDevicePixelRatio] = React.useState(1);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      setDevicePixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    }
+  }, []);
+
+  // 使用传入的 dpr 或计算出的 devicePixelRatio
+  const finalDpr = dpr || devicePixelRatio;
+
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const ctn = containerRef.current;
     if (!ctn) return;
@@ -299,7 +311,7 @@ export default function FaultyTerminal({
     const ctn = containerRef.current;
     if (!ctn) return;
 
-    const renderer = new Renderer({ dpr });
+    const renderer = new Renderer({ dpr: finalDpr });
     rendererRef.current = renderer;
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 1);
@@ -412,7 +424,7 @@ export default function FaultyTerminal({
       timeOffsetRef.current = Math.random() * 100;
     };
   }, [
-    dpr,
+    finalDpr,
     pause,
     timeScale,
     scale,

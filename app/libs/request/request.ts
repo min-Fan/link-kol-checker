@@ -18,6 +18,13 @@ class HttpRequest {
     // 请求拦截器
     this.instance.interceptors.request.use(
       (config) => {
+        const token = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("checker.linkol="))
+          ?.split("=")[1];
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
       },
       (error) => {

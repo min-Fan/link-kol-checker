@@ -6,6 +6,8 @@ export const ENDPOINT_URL = {
   POSTS_LIST: "/kol/api/v4/tweets/",
   GET_INDEX_DATA: "/kol/api/v4/index/",
   GET_RANK_LIST: "/kol/api/v5/top/kols/",
+  LOGIN: "/kol/api/v4/simple/login/",
+  ACCEPT_PRICE: "/kol/api/v4/price/accept/",
 };
 
 /**
@@ -29,21 +31,19 @@ export interface IGetPriceParams {
   screen_name: string;
 }
 export interface IGetPriceData {
-  bins: number[];
-  /**
-   * 所在区间的下标，是从0开始的
-   */
-  current_bin: number;
   /**
    * 当前KOL价格
    */
   current_value: number;
-  data: number[];
   kol: Kol;
   /**
    * 领先百分比
    */
   leading_percentage: number;
+  /**
+   * 是否已经接受报价
+   */
+  is_do_accepted: boolean;
 }
 
 export interface Kol {
@@ -112,4 +112,54 @@ export const rankList = async (params: IGetRankListData) => {
   return request.get<IGetRankListResponse>(ENDPOINT_URL.GET_RANK_LIST, {
     ...params,
   });
+};
+
+// login
+export interface ILoginParams {
+  /**
+   * @前的名字
+   */
+  name: string;
+  /**
+   * 头像URL
+   */
+  profile_image_url: string;
+  /**
+   * @后的名字
+   */
+  username: string;
+  /**
+   * 推用户ID
+   */
+  x_user_id: string;
+}
+export const login = async (params: ILoginParams) => {
+  return request.post(ENDPOINT_URL.LOGIN, params);
+};
+
+// 是否接受价格
+export interface IAcceptPriceParams {
+  /**
+   * 邮箱
+   */
+  email: string;
+  /**
+   * 期望价格，不接受的话 这个字段传值 否则传用户当前算出来的价格
+   */
+  expected_price: number;
+  /**
+   * 是不是接受报价
+   */
+  is_accepted: boolean;
+  /**
+   * tg账号
+   */
+  telegram: string;
+  /**
+   * 推特账号
+   */
+  tweet: string;
+}
+export const acceptPrice = async (params: IAcceptPriceParams) => {
+  return request.post(ENDPOINT_URL.ACCEPT_PRICE, params);
 };

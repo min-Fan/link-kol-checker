@@ -1,10 +1,10 @@
 function withValidProperties(
-  properties: Record<string, undefined | string | string[]>
+  properties: Record<string, undefined | string | string[]>,
 ) {
   return Object.fromEntries(
     Object.entries(properties).filter(([_, value]) =>
-      Array.isArray(value) ? value.length > 0 : !!value
-    )
+      Array.isArray(value) ? value.length > 0 : !!value,
+    ),
   );
 }
 

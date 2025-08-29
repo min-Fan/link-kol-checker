@@ -9,6 +9,12 @@ import SpreadX from "./spreadX.svg";
 import PixelartArrowRight from "./pixelart-arrow-right.svg";
 import PixelartLoader from "./pixelart-loader.svg";
 import TwitterX from "./twitter-x.svg";
+import Like from "./like-broken.svg";
+import Dislike from "./dislike-line.svg";
+import LikeBold from "./like-bold.svg";
+import DislikeBold from "./dislike-bold.svg";
+import Success from "./suc.svg";
+import Fail from "./fail.svg";
 
 export {
   Logo,
@@ -22,4 +28,10 @@ export {
   PixelartArrowRight,
   PixelartLoader,
   TwitterX,
+  Like,
+  Dislike,
+  LikeBold,
+  DislikeBold,
+  Success,
+  Fail,
 };
