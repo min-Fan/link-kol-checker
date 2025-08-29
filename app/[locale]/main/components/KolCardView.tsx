@@ -1,5 +1,5 @@
 import { IGetPriceData } from "@/app/libs/request";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/app/shadcn/components/ui/button";
 import {
   CopyIcon,
@@ -39,6 +39,30 @@ export default function KolCardView({
   const [isOpen, setIsOpen] = useState(false);
   const [isLikeHovered, setIsLikeHovered] = useState(false);
   const [isDislikeHovered, setIsDislikeHovered] = useState(false);
+  const [clipboardSupported, setClipboardSupported] = useState<boolean | null>(
+    null,
+  );
+
+  // 检测Clipboard API支持状态
+  useEffect(() => {
+    const checkClipboardSupport = async () => {
+      try {
+        // 检查是否支持现代Clipboard API
+        const hasClipboard = !!(navigator.clipboard && window.ClipboardItem);
+        setClipboardSupported(hasClipboard);
+
+        if (!hasClipboard) {
+          console.log("Clipboard API not supported, will use fallback methods");
+        }
+      } catch (error) {
+        console.log("Clipboard support check failed:", error);
+        setClipboardSupported(false);
+      }
+    };
+
+    checkClipboardSupport();
+  }, []);
+
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitter_full_profile = useAppSelector(
     (state) => state.userReducer.twitter_full_profile,
@@ -67,27 +91,61 @@ export default function KolCardView({
       canvas.toBlob(async (blob) => {
         if (blob) {
           try {
-            // 创建ClipboardItem并复制到剪贴板
-            const clipboardItem = new ClipboardItem({
-              [blob.type]: blob,
-            });
-            await navigator.clipboard.write([clipboardItem]);
+            // 尝试使用现代Clipboard API
+            if (navigator.clipboard && window.ClipboardItem) {
+              const clipboardItem = new ClipboardItem({
+                [blob.type]: blob,
+              });
+              await navigator.clipboard.write([clipboardItem]);
 
-            toast({
-              title: "Copy successful",
-              description: "Chart has been copied to clipboard",
-            });
-          } catch (clipboardError) {
-            // 如果剪贴板API不支持，尝试使用传统方法
-            try {
-              const dataUrl = canvas.toDataURL("image/png");
-              await navigator.clipboard.writeText(dataUrl);
               toast({
                 title: "Copy successful",
-                description: "Chart URL has been copied to clipboard",
+                description: "Card has been copied to clipboard",
               });
-            } catch (fallbackError) {
+            } else {
+              // 降级方案：尝试复制图片到剪贴板
               throw new Error("Clipboard API not supported");
+            }
+          } catch (clipboardError) {
+            console.log(
+              "Modern clipboard failed, trying fallback:",
+              clipboardError,
+            );
+
+            try {
+              // 降级方案1：尝试使用canvas的toBlob方法复制
+              const dataUrl = canvas.toDataURL("image/png");
+
+              // 创建一个临时的textarea来复制图片URL
+              const textArea = document.createElement("textarea");
+              textArea.value = dataUrl;
+              textArea.style.position = "fixed";
+              textArea.style.left = "-999999px";
+              textArea.style.top = "-999999px";
+              document.body.appendChild(textArea);
+              textArea.focus();
+              textArea.select();
+
+              const successful = document.execCommand("copy");
+              document.body.removeChild(textArea);
+
+              if (successful) {
+                toast({
+                  title: "Copy successful",
+                  description: "Card URL has been copied to clipboard",
+                });
+              } else {
+                throw new Error("execCommand copy failed");
+              }
+            } catch (fallbackError) {
+              console.log("Fallback copy failed:", fallbackError);
+
+              // 最后的降级方案：提示用户手动保存
+              toast({
+                title: "Copy not supported",
+                description: "Please right-click the card and save as image",
+                variant: "destructive",
+              });
             }
           }
         }
@@ -95,10 +153,10 @@ export default function KolCardView({
     } catch (error) {
       toast({
         title: "Copy failed",
-        description: "Please try again",
+        description: "Failed to generate card image. Please try again.",
         variant: "destructive",
       });
-      console.error("复制失败:", error);
+      console.error("Canvas generation failed:", error);
     } finally {
       setIsCopying(false);
     }
@@ -125,7 +183,7 @@ export default function KolCardView({
 
       toast({
         title: "Download successful",
-        description: "Chart has been downloaded successfully",
+        description: "Card has been downloaded successfully",
       });
     } catch (error) {
       toast({
