@@ -13,7 +13,7 @@ import { setAuthToken, clearAuthToken } from "@/app/libs/utils";
 
 // 自定义hook处理登录状态
 function PrivyLoginHandler() {
-  const { user, authenticated } = usePrivy();
+  const { user, authenticated, logout } = usePrivy();
   const dispatch = useAppDispatch();
   const { toast } = useToast();
 
@@ -48,6 +48,7 @@ function PrivyLoginHandler() {
             title: "Login failed",
             description: "Please try again later",
           });
+          logout();
         }
       } else if (!authenticated) {
         // 用户未认证，清理状态
