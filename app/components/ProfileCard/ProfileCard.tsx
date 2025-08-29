@@ -50,7 +50,7 @@ const adjust = (
   fromMin: number,
   fromMax: number,
   toMin: number,
-  toMax: number
+  toMax: number,
 ): number =>
   round(toMin + ((toMax - toMin) * (value - fromMin)) / (fromMax - fromMin));
 
@@ -90,7 +90,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       offsetX: number,
       offsetY: number,
       card: HTMLElement,
-      wrap: HTMLElement
+      wrap: HTMLElement,
     ) => {
       const width = card.clientWidth;
       const height = card.clientHeight;
@@ -109,7 +109,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
         "--pointer-from-center": `${clamp(
           Math.hypot(percentY - 50, percentX - 50) / 50,
           0,
-          1
+          1,
         )}`,
         "--pointer-from-top": `${percentY / 100}`,
         "--pointer-from-left": `${percentX / 100}`,
@@ -127,7 +127,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       startX: number,
       startY: number,
       card: HTMLElement,
-      wrap: HTMLElement
+      wrap: HTMLElement,
     ) => {
       const startTime = performance.now();
       const targetX = wrap.clientWidth / 2;
@@ -175,10 +175,10 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
         event.clientX - rect.left,
         event.clientY - rect.top,
         card,
-        wrap
+        wrap,
       );
     },
-    [animationHandlers]
+    [animationHandlers],
   );
 
   const handlePointerEnter = useCallback(() => {
@@ -204,12 +204,12 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
         event.offsetX,
         event.offsetY,
         card,
-        wrap
+        wrap,
       );
       wrap.classList.remove("active");
       card.classList.remove("active");
     },
-    [animationHandlers]
+    [animationHandlers],
   );
 
   const handleDeviceOrientation = useCallback(
@@ -227,10 +227,10 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
         card.clientWidth / 2 +
           (beta - ANIMATION_CONFIG.DEVICE_BETA_OFFSET) * mobileTiltSensitivity,
         card,
-        wrap
+        wrap,
       );
     },
-    [animationHandlers, mobileTiltSensitivity]
+    [animationHandlers, mobileTiltSensitivity],
   );
 
   useEffect(() => {
@@ -258,7 +258,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
             if (state === "granted") {
               window.addEventListener(
                 "deviceorientation",
-                deviceOrientationHandler
+                deviceOrientationHandler,
               );
             }
           })
@@ -282,7 +282,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       initialX,
       initialY,
       card,
-      wrap
+      wrap,
     );
 
     return () => {
@@ -309,11 +309,11 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
         "--icon": iconUrl ? `url(${iconUrl})` : "none",
         "--grain": grainUrl ? `url(${grainUrl})` : "none",
         "--behind-gradient": showBehindGradient
-          ? behindGradient ?? DEFAULT_BEHIND_GRADIENT
+          ? (behindGradient ?? DEFAULT_BEHIND_GRADIENT)
           : "none",
         "--inner-gradient": innerGradient ?? DEFAULT_INNER_GRADIENT,
-      } as React.CSSProperties),
-    [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient]
+      }) as React.CSSProperties,
+    [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient],
   );
 
   const handleContactClick = useCallback(() => {

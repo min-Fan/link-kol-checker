@@ -288,9 +288,9 @@ export default function FaultyTerminal({
 
   // 安全地获取设备像素比，避免 SSR 错误
   const [devicePixelRatio, setDevicePixelRatio] = React.useState(1);
-  
+
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       setDevicePixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     }
   }, []);

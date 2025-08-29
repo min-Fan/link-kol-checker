@@ -38,7 +38,7 @@ const CachedFaultyTerminal = React.memo(() => {
       pageLoadAnimation: false,
       brightness: 0.6,
     }),
-    []
+    [],
   );
 
   return <FaultyTerminal {...terminalProps} />;
@@ -212,9 +212,9 @@ export default function Home() {
                 scale: { duration: 0.4 },
               }}
             >
-              <KolCardView 
-                data={price} 
-                onReset={handleReset} 
+              <KolCardView
+                data={price}
+                onReset={handleReset}
                 onDataUpdate={(newData) => setPrice(newData)}
               />
             </motion.div>

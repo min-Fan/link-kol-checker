@@ -189,7 +189,6 @@ export default function PostView({ post }: { post: TwitterPost }) {
           <span>{formatNumberKMB(post?.views || 0)}</span>
         </div>
       </div> */}
-
     </div>
   );
 }

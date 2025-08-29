@@ -1,21 +1,21 @@
 // configureStore: store配置项
-import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query/react';
+import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query/react";
 // combineReducers： 组合reducers目录下的所有reducer模块
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 // 数据持久化
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer } from "redux-persist";
 // defaults to localStorage for web
-import localForage from 'localforage';
+import localForage from "localforage";
 
 // 导入自己封装好的reducers
-import userReducer, { initialState, UserState } from './reducers/userSlice';
-import { updateVersion } from './global/actions';
+import userReducer, { initialState, UserState } from "./reducers/userSlice";
+import { updateVersion } from "./global/actions";
 
 // 创建一个安全的存储配置，支持SSR
 const createSafeStorage = () => {
   // 检查是否在客户端环境
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     // 服务器端：返回一个模拟的存储对象
     return {
       getItem: () => Promise.resolve(null),
@@ -27,22 +27,27 @@ const createSafeStorage = () => {
   // 客户端：使用 localForage
   try {
     return localForage.createInstance({
-      name: 'checker-linkol:redux',
+      name: "checker-linkol:redux",
     });
   } catch (error) {
-    console.warn('LocalForage failed to initialize, falling back to localStorage:', error);
+    console.warn(
+      "LocalForage failed to initialize, falling back to localStorage:",
+      error,
+    );
     // 降级到 localStorage
     return {
       getItem: (key: string) => Promise.resolve(localStorage.getItem(key)),
-      setItem: (key: string, value: any) => Promise.resolve(localStorage.setItem(key, value)),
-      removeItem: (key: string) => Promise.resolve(localStorage.removeItem(key)),
+      setItem: (key: string, value: any) =>
+        Promise.resolve(localStorage.setItem(key, value)),
+      removeItem: (key: string) =>
+        Promise.resolve(localStorage.removeItem(key)),
     };
   }
 };
 
 // 持久化存储配置对象
 const persistConfig = {
-  key: 'interface',
+  key: "interface",
   storage: createSafeStorage(),
   version: 0.1,
   throttle: 1000, // ms
@@ -63,7 +68,7 @@ const persistConfig = {
       const result = { ...target };
       for (const key in source) {
         if (
-          typeof source[key] === 'object' &&
+          typeof source[key] === "object" &&
           source[key] !== null &&
           !Array.isArray(source[key])
         ) {
@@ -77,7 +82,7 @@ const persistConfig = {
 
     // 过滤多余的键，只保留在 schema 中定义的键
     const filterExtraKeys = (data: any, schema: any): any => {
-      if (!data || typeof data !== 'object' || typeof schema !== 'object') {
+      if (!data || typeof data !== "object" || typeof schema !== "object") {
         return data;
       }
 
@@ -92,9 +97,9 @@ const persistConfig = {
       for (const key in schema) {
         if (key in data) {
           if (
-            typeof schema[key] === 'object' &&
+            typeof schema[key] === "object" &&
             schema[key] !== null &&
-            typeof data[key] === 'object' &&
+            typeof data[key] === "object" &&
             data[key] !== null &&
             !Array.isArray(schema[key])
           ) {
@@ -113,8 +118,14 @@ const persistConfig = {
     };
 
     // 合并状态，先补充缺失的键，然后过滤多余的键
-    const mergedUserReducer = deepMerge(state.userReducer || {}, initial.userReducer);
-    const filteredUserReducer = filterExtraKeys(mergedUserReducer, initial.userReducer);
+    const mergedUserReducer = deepMerge(
+      state.userReducer || {},
+      initial.userReducer,
+    );
+    const filteredUserReducer = filterExtraKeys(
+      mergedUserReducer,
+      initial.userReducer,
+    );
 
     const newState = {
       ...state,
@@ -135,7 +146,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     // 数据切片
     userReducer,
-  })
+  }),
 );
 
 // 将持久化插件和store通过middleware关联起来
@@ -154,14 +165,14 @@ const store = configureStore({
 
 // 持久化的store - 只在客户端创建
 let persistor: any = null;
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   persistor = persistStore(store);
 }
 
 setupListeners(store.dispatch);
 
 // 只在客户端派发更新版本的action
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   store.dispatch(updateVersion());
 }
 

@@ -204,17 +204,18 @@ export const fileToBase64 = (file: File): Promise<string> => {
  * 清理认证令牌
  */
 export const clearAuthToken = () => {
-  document.cookie = "checker.linkol=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict";
+  document.cookie =
+    "checker.linkol=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict";
 };
 
 /**
  * 获取认证令牌
  */
 export const getAuthToken = (): string | null => {
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
   for (let cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === 'checker.linkol') {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "checker.linkol") {
       return value;
     }
   }
@@ -231,4 +232,4 @@ export const setAuthToken = (token: string) => {
 };
 
 // 导出域名工具函数
-export { getCurrentDomain, getCurrentUrl, getCurrentProtocol } from './domain';
+export { getCurrentDomain, getCurrentUrl, getCurrentProtocol } from "./domain";

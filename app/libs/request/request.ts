@@ -29,7 +29,7 @@ class HttpRequest {
       },
       (error) => {
         return Promise.reject(error);
-      }
+      },
     );
 
     // 响应拦截器
@@ -62,7 +62,7 @@ class HttpRequest {
         //   }
         console.error("Request Error:", error);
         return Promise.reject(error);
-      }
+      },
     );
   }
 
@@ -70,7 +70,7 @@ class HttpRequest {
   public get<T = any>(
     url: string,
     params?: any,
-    config?: any
+    config?: any,
   ): Promise<ResponseData<T>> {
     return this.instance.get(url, { params, ...config });
   }
@@ -79,7 +79,7 @@ class HttpRequest {
   public post<T = any>(
     url: string,
     data?: any,
-    config?: any
+    config?: any,
   ): Promise<ResponseData<T>> {
     return this.instance.post(url, data, config);
   }

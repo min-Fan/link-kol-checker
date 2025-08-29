@@ -133,7 +133,9 @@ export default function DialogConfimPrice({
       if (response.data) {
         // 成功提交后，重新获取价格数据
         try {
-          const newPriceData = await getPrice({ screen_name: data.kol.screen_name });
+          const newPriceData = await getPrice({
+            screen_name: data.kol.screen_name,
+          });
           if (newPriceData.data) {
             // 通知父组件数据已更新
             if (onDataUpdate) {
@@ -143,7 +145,7 @@ export default function DialogConfimPrice({
         } catch (error) {
           console.error("Failed to fetch updated price data:", error);
         }
-        
+
         setDialogState("success");
       } else {
         setDialogState("error");
@@ -424,11 +426,14 @@ export default function DialogConfimPrice({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => {
-      if (!open) {
-        handleClose();
-      }
-    }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          handleClose();
+        }
+      }}
+    >
       <DialogClose asChild></DialogClose>
       <DialogContent
         className="border-border flex max-h-[90vh] w-[450px] max-w-full flex-col gap-0 overflow-hidden bg-transparent p-2 shadow-none sm:w-96 sm:max-w-full sm:p-0"
