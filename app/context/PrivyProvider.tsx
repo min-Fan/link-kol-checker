@@ -78,6 +78,8 @@ export default function PrivyProviderContext({
         appearance: {
           theme: "light",
           accentColor: "#3b82f6",
+          logo: "https://tweetvalue.linkol.fun/linkol-logoicon-light.png",
+          showWalletLoginFirst: false,
         },
       }}
     >
