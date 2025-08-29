@@ -162,7 +162,7 @@ export default function Home() {
                   <div className="flex items-center justify-between gap-1">
                     <Input
                       className="border-none text-base sm:text-base w-auto px-0 py-0 h-auto"
-                      placeholder="Enter Twitter handle"
+                      placeholder="Enter twitter handle"
                       value={username}
                       onChange={(e) =>
                         setUsername(e.target.value.replace(/\s/g, ""))
@@ -187,7 +187,7 @@ export default function Home() {
                   disabled={isLoading}
                 >
                   <span className="whitespace-nowrap">
-                    {isLoading ? "Checking" : "Check your tweet Value now"}
+                    {isLoading ? "Checking" : "Check your tweet value now"}
                   </span>
                   {isLoading ? (
                     <PixelartLoader className="animate-spin w-6 h-6" />
@@ -212,7 +212,11 @@ export default function Home() {
                 scale: { duration: 0.4 },
               }}
             >
-              <KolCardView data={price} onReset={handleReset} />
+              <KolCardView 
+                data={price} 
+                onReset={handleReset} 
+                onDataUpdate={(newData) => setPrice(newData)}
+              />
             </motion.div>
           )}
         </AnimatePresence>

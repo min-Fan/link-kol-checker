@@ -75,7 +75,7 @@
   transform: translate3d(0, 0, 0.1px) rotateX(0deg) rotateY(0deg);
   background-size: 100% 100%;
   background-position: 0 0, 0 0, 50% 50%, 0 0;
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
       farthest-side circle at var(--pointer-x) var(--pointer-y),
       hsla(266, 100%, 90%, var(--card-opacity)) 4%,
       hsla(266, 50%, 80%, calc(var(--card-opacity) * 0.75)) 10%,
@@ -90,7 +90,7 @@
       #07c6ffff 40%,
       #07c6ffff 60%,
       #c137ffff 100%
-    );
+    ); */
   overflow: hidden;
 }
 
@@ -518,8 +518,10 @@
 
 @media (max-width: 320px) {
   .pc-card {
-    height: 55svh;
-    max-height: 320px;
+    /* height: 55svh; */
+    /* max-height: 320px; */
+    width: 80%;
+    margin: 0 auto;
   }
 
   .pc-details h3 {

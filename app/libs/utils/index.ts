@@ -200,5 +200,35 @@ export const fileToBase64 = (file: File): Promise<string> => {
   });
 };
 
+/**
+ * 清理认证令牌
+ */
+export const clearAuthToken = () => {
+  document.cookie = "checker.linkol=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict";
+};
+
+/**
+ * 获取认证令牌
+ */
+export const getAuthToken = (): string | null => {
+  const cookies = document.cookie.split(';');
+  for (let cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'checker.linkol') {
+      return value;
+    }
+  }
+  return null;
+};
+
+/**
+ * 设置认证令牌
+ */
+export const setAuthToken = (token: string) => {
+  const expires = new Date();
+  expires.setDate(expires.getDate() + 7); // 7天后过期
+  document.cookie = `checker.linkol=${token}; expires=${expires.toUTCString()}; path=/; SameSite=Strict`;
+};
+
 // 导出域名工具函数
 export { getCurrentDomain, getCurrentUrl, getCurrentProtocol } from './domain';

@@ -12,19 +12,37 @@ import html2canvas from "html2canvas";
 import { toast } from "@/app/shadcn/hooks/use-toast";
 import KolCard from "./KolCard";
 import ProfileCard from "@/app/components/ProfileCard/ProfileCard";
-import { Logo, TwitterX } from "@/app/assets/svg";
+import {
+  Dislike,
+  DislikeBold,
+  Like,
+  LikeBold,
+  Logo,
+  TwitterX,
+} from "@/app/assets/svg";
 import DownloadCard from "./DownloadCard";
+import DialogConfimPrice from "./dialog/DialogConfimPrice";
+import { useAppSelector } from "@/app/store/hooks";
 
 export default function KolCardView({
   data,
   onReset,
+  onDataUpdate,
 }: {
   data: IGetPriceData;
   onReset: () => void;
+  onDataUpdate?: (newData: IGetPriceData) => void;
 }) {
   const chartRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLikeHovered, setIsLikeHovered] = useState(false);
+  const [isDislikeHovered, setIsDislikeHovered] = useState(false);
+  const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
+  const twitter_full_profile = useAppSelector(
+    (state) => state.userReducer.twitter_full_profile
+  );
 
   const shareOnX = () => {
     const str = `AI priced my tweet at $${data.current_value}. What's yours worth? \n👉 ${window.location.href}`;
@@ -123,10 +141,10 @@ export default function KolCardView({
 
   return (
     <div className="flex flex-col justify-center items-center gap-10 w-full sm:w-auto">
-      <h1 className="text-center sm:text-4xl text-2xl font-bold">
+      <h1 className="text-center sm:text-4xl text-2xl font-bold mt-10 sm:mt-0">
         Your Tweet Value
       </h1>
-      <div className="flex items-center justify-center flex-col">
+      <div className="flex items-center justify-center flex-col relative">
         <DownloadCard
           data={data}
           className="w-[800px] h-[800px] fixed top-[-200%] left-[-200%]"
@@ -141,6 +159,68 @@ export default function KolCardView({
           onContactClick={() => console.log("Contact clicked")}
           data={data}
         />
+        {!data.is_do_accepted &&
+          isLoggedIn &&
+          twitter_full_profile &&
+          twitter_full_profile.username === data.kol.screen_name && (
+            <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
+              <div
+                className="cursor-pointer hover:scale-110 transition-all duration-300"
+                onMouseEnter={() => setIsLikeHovered(true)}
+                onMouseLeave={() => setIsLikeHovered(false)}
+                onClick={() => setIsOpen(true)}
+              >
+                {isLikeHovered ? (
+                  <LikeBold className="w-12 h-12" />
+                ) : (
+                  <Like className="w-12 h-12" />
+                )}
+              </div>
+              <div
+                className="cursor-pointer hover:scale-110 transition-all duration-300"
+                onMouseEnter={() => setIsDislikeHovered(true)}
+                onMouseLeave={() => setIsDislikeHovered(false)}
+                onClick={() => setIsOpen(true)}
+              >
+                {isDislikeHovered ? (
+                  <DislikeBold className="w-12 h-12" />
+                ) : (
+                  <Dislike className="w-12 h-12" />
+                )}
+              </div>
+            </div>
+          )}
+        {!data.is_do_accepted &&
+          isLoggedIn &&
+          twitter_full_profile &&
+          twitter_full_profile.username === data.kol.screen_name && (
+            <div className="items-center justify-between gap-4 sm:hidden flex w-full px-10 mt-4">
+              <div
+                className="cursor-pointer hover:scale-110 transition-all duration-300"
+                onMouseEnter={() => setIsLikeHovered(true)}
+                onMouseLeave={() => setIsLikeHovered(false)}
+                onClick={() => setIsOpen(true)}
+              >
+                {isLikeHovered ? (
+                  <LikeBold className="w-6 h-6" />
+                ) : (
+                  <Like className="w-6 h-6" />
+                )}
+              </div>
+              <div
+                className="cursor-pointer hover:scale-110 transition-all duration-300"
+                onMouseEnter={() => setIsDislikeHovered(true)}
+                onMouseLeave={() => setIsDislikeHovered(false)}
+                onClick={() => setIsOpen(true)}
+              >
+                {isDislikeHovered ? (
+                  <DislikeBold className="w-6 h-6" />
+                ) : (
+                  <Dislike className="w-6 h-6" />
+                )}
+              </div>
+            </div>
+          )}
       </div>
       <div className="w-full flex items-center justify-center gap-2 pb-4 flex-wrap">
         <div className="flex items-center gap-4 flex-wrap justify-center">
@@ -199,6 +279,17 @@ export default function KolCardView({
           </p>
         </Button> */}
       </div>
+      <DialogConfimPrice
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        data={data}
+        onDataUpdate={(newData) => {
+          // 更新父组件的数据
+          if (onDataUpdate) {
+            onDataUpdate(newData);
+          }
+        }}
+      />
     </div>
   );
 }

@@ -11,6 +11,7 @@ import WagmiProviderContext from "../context/WagmiProviderContext";
 import { MiniKitContextProvider } from "../providers/MiniKitProvider";
 import { Metadata } from "next";
 import PrivyProviderContext from "../context/PrivyProvider";
+import ReduxProvider from "../context/ReduxProvider";
 
 export default async function LocaleLayout({
   children,
@@ -25,28 +26,33 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
       </head>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <WagmiProviderContext>
-            <MiniKitContextProvider>
-              <PrivyProviderContext>
-                <ScrollArea className="bg-background flex w-full h-screen flex-col bg-[radial-gradient(66.14%_90.55%_at_49.89%_100%,rgba(0,122,255,0.10)_0%,rgba(0,122,255,0.00)_100%)] shadow-[0px 4px 6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[30px]">
-                  {/* <div className="absolute inset-0 z-[0] w-full h-full">
+        <ReduxProvider>
+          <NextIntlClientProvider messages={messages}>
+            <WagmiProviderContext>
+              <MiniKitContextProvider>
+                <PrivyProviderContext>
+                  <ScrollArea className="bg-background flex w-full h-screen flex-col bg-[radial-gradient(66.14%_90.55%_at_49.89%_100%,rgba(0,122,255,0.10)_0%,rgba(0,122,255,0.00)_100%)] shadow-[0px 4px 6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[30px]">
+                    {/* <div className="absolute inset-0 z-[0] w-full h-full">
                   <CanvasBackground />
                 </div> */}
-                  {/* <div className="relative z-[0] w-full h-full flex flex-col items-center justify-start"> */}
-                  <Nav />
-                  {children}
-                  <Footer />
-                  {/* </div> */}
-                </ScrollArea>
-              </PrivyProviderContext>
-            </MiniKitContextProvider>
-          </WagmiProviderContext>
-          <Toaster />
-        </NextIntlClientProvider>
+                    {/* <div className="relative z-[0] w-full h-full flex flex-col items-center justify-start"> */}
+                    <Nav />
+                    {children}
+                    <Footer />
+                    {/* </div> */}
+                  </ScrollArea>
+                </PrivyProviderContext>
+              </MiniKitContextProvider>
+            </WagmiProviderContext>
+            <Toaster />
+          </NextIntlClientProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

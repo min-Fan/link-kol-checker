@@ -97,7 +97,10 @@ export default function CardView({
       {/* 价格显示 */}
       <div className="flex justify-center flex-col items-center mt-5 pb-[50px]">
         <div id="price" className="text-white text-2xl font-bold leading-none">
-          ${data?.current_value?.toLocaleString() || "0"}
+          $
+          {data?.current_value >= 10000
+            ? "10000+"
+            : data?.current_value?.toLocaleString() || "0"}
         </div>
         <span className="text-xs text-primary scale-50 leading-none">
           Single Tweet Value by AI

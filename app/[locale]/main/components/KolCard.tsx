@@ -112,7 +112,10 @@ export default function KolCard({
           id="price"
           className="text-white text-4xl font-bold leading-none mb-2 font-kyiv"
         >
-          ${data?.current_value?.toLocaleString() || "0"}
+          $
+          {data?.current_value >= 10000
+            ? "10000+"
+            : data?.current_value?.toLocaleString() || "0"}
         </div>
         <div className="flex items-center justify-center">
           <span className="text-xs text-primary !scale-90">Single</span>
