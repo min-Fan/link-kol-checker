@@ -34,7 +34,9 @@ type DialogState =
   | "expected-price"
   | "contact-info"
   | "success"
-  | "error";
+  | "error"
+  | "already-completed"
+  | "unauthorized";
 
 export default function DialogConfimPrice({
   isOpen,
@@ -43,6 +45,9 @@ export default function DialogConfimPrice({
   onDataUpdate,
 }: DialogConfimPriceProps) {
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
+  const twitterFullProfile = useAppSelector(
+    (state) => state.userReducer.twitter_full_profile
+  );
   const { login } = usePrivy();
   const { toast } = useToast();
 
@@ -55,6 +60,7 @@ export default function DialogConfimPrice({
     email: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   // 邮箱格式验证函数
   const validateEmail = (email: string): boolean => {
@@ -66,6 +72,29 @@ export default function DialogConfimPrice({
   useEffect(() => {
     setCurrentPrice(data.current_value);
   }, [data.current_value]);
+
+  // 检查初始状态
+  useEffect(() => {
+    if (isOpen && data) {
+      // 如果已经完成价格评价
+      if (isLoggedIn && data.is_do_accepted) {
+        setDialogState("already-completed");
+        return;
+      }
+
+      // 如果已登录，检查用户名是否匹配
+      if (isLoggedIn) {
+        const twitterUsername = twitterFullProfile?.username;
+        if (twitterUsername && twitterUsername !== data.kol.screen_name) {
+          setDialogState("unauthorized");
+          return;
+        }
+      }
+
+      // 正常流程
+      setDialogState("confirm");
+    }
+  }, [isOpen, data, isLoggedIn, twitterFullProfile?.username]);
 
   const handleVerifyClick = () => {
     if (!isLoggedIn) {
@@ -97,6 +126,7 @@ export default function DialogConfimPrice({
 
   const handleContactInfoSubmit = async () => {
     if (!contactInfo.email) {
+      setEmailError(true);
       toast({
         title: "Please fill in your email address",
         variant: "destructive",
@@ -106,6 +136,7 @@ export default function DialogConfimPrice({
 
     // 验证邮箱格式
     if (!validateEmail(contactInfo.email)) {
+      setEmailError(true);
       toast({
         title: "Invalid email format",
         description: "Please enter a valid email address",
@@ -169,6 +200,7 @@ export default function DialogConfimPrice({
     setContactInfo({ twitter: "", telegram: "", email: "" });
     setCurrentPrice(data.current_value);
     setIsLoading(false);
+    setEmailError(false);
     onClose();
   };
 
@@ -297,19 +329,26 @@ export default function DialogConfimPrice({
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium font-sf">Email</label>
+                  <label className="text-sm font-medium font-sf">
+                    Email <span className="text-red">*</span>
+                  </label>
                   <Input
                     type="email"
                     placeholder="Enter email address"
                     value={contactInfo.email}
-                    onChange={(e) =>
+                    onChange={(e) => {
                       setContactInfo((prev) => ({
                         ...prev,
                         email: e.target.value,
-                      }))
-                    }
+                      }));
+                      // 清除错误状态
+                      if (emailError) {
+                        setEmailError(false);
+                      }
+                    }}
                     onBlur={(e) => {
                       if (e.target.value && !validateEmail(e.target.value)) {
+                        setEmailError(true);
                         toast({
                           title: "Invalid email format",
                           description: "Please enter a valid email address",
@@ -317,7 +356,9 @@ export default function DialogConfimPrice({
                         });
                       }
                     }}
-                    className="mt-1 font-sf"
+                    className={`mt-1 font-sf ${
+                      emailError ? "border-red focus:border-red" : ""
+                    }`}
                   />
                 </div>
               </div>
@@ -403,6 +444,61 @@ export default function DialogConfimPrice({
           </>
         );
 
+      case "already-completed":
+        return (
+          <>
+            <div className="flex flex-col items-center text-center">
+              <div className="rounded-full flex items-center justify-center mb-4">
+                <Success />
+              </div>
+              <p className="text-base font-sf-bold">Price Already Set!</p>
+              <p className="text-base font-sf">
+                Great, thank you for your feedback.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <Button
+                variant="secondary"
+                onClick={handleDone}
+                className="border-border hover:bg-muted-foreground/10 !h-auto flex-1 !rounded-md font-sf"
+              >
+                Done
+              </Button>
+              <Button
+                onClick={shareOnX}
+                className="bg-primary hover:bg-primary/90 !h-auto flex-1 !rounded-md text-white font-sf gap-1"
+              >
+                <span className="font-sf">Share on</span>
+                <TwitterX className="w-6 h-6 text-white" />
+              </Button>
+            </div>
+          </>
+        );
+
+      case "unauthorized":
+        return (
+          <>
+            <div className="flex flex-col items-center text-center">
+              <div className="rounded-full flex items-center justify-center mb-4">
+                <Fail />
+              </div>
+              <p className="text-base font-sf-bold">Unauthorized Access!</p>
+              <p className="text-base font-sf">
+                Only the corresponding Twitter account can be operated.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <Button
+                variant="secondary"
+                onClick={handleDone}
+                className="border-border hover:bg-muted-foreground/10 !h-auto flex-1 !rounded-md font-sf"
+              >
+                Close
+              </Button>
+            </div>
+          </>
+        );
+
       default:
         return null;
     }
@@ -420,6 +516,10 @@ export default function DialogConfimPrice({
         return "Preference Saved!";
       case "error":
         return "Submission Failed";
+      case "already-completed":
+        return "Price Already Set!";
+      case "unauthorized":
+        return "Unauthorized Access";
       default:
         return "Confirm Price";
     }

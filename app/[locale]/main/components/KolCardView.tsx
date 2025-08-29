@@ -40,7 +40,7 @@ export default function KolCardView({
   const [isLikeHovered, setIsLikeHovered] = useState(false);
   const [isDislikeHovered, setIsDislikeHovered] = useState(false);
   const [clipboardSupported, setClipboardSupported] = useState<boolean | null>(
-    null,
+    null
   );
 
   // 检测Clipboard API支持状态
@@ -65,7 +65,7 @@ export default function KolCardView({
 
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitter_full_profile = useAppSelector(
-    (state) => state.userReducer.twitter_full_profile,
+    (state) => state.userReducer.twitter_full_profile
   );
 
   const shareOnX = () => {
@@ -109,7 +109,7 @@ export default function KolCardView({
           } catch (clipboardError) {
             console.log(
               "Modern clipboard failed, trying fallback:",
-              clipboardError,
+              clipboardError
             );
 
             try {
@@ -217,68 +217,62 @@ export default function KolCardView({
           onContactClick={() => console.log("Contact clicked")}
           data={data}
         />
-        {!data.is_do_accepted &&
-          isLoggedIn &&
-          twitter_full_profile &&
-          twitter_full_profile.username === data.kol.screen_name && (
-            <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
-              <div
-                className="cursor-pointer hover:scale-110 transition-all duration-300"
-                onMouseEnter={() => setIsLikeHovered(true)}
-                onMouseLeave={() => setIsLikeHovered(false)}
-                onClick={() => setIsOpen(true)}
-              >
-                {isLikeHovered ? (
-                  <LikeBold className="w-12 h-12" />
-                ) : (
-                  <Like className="w-12 h-12" />
-                )}
-              </div>
-              <div
-                className="cursor-pointer hover:scale-110 transition-all duration-300"
-                onMouseEnter={() => setIsDislikeHovered(true)}
-                onMouseLeave={() => setIsDislikeHovered(false)}
-                onClick={() => setIsOpen(true)}
-              >
-                {isDislikeHovered ? (
-                  <DislikeBold className="w-12 h-12" />
-                ) : (
-                  <Dislike className="w-12 h-12" />
-                )}
-              </div>
+        {/* {!data.is_do_accepted && ( */}
+          <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsLikeHovered(true)}
+              onMouseLeave={() => setIsLikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isLikeHovered ? (
+                <LikeBold className="w-12 h-12" />
+              ) : (
+                <Like className="w-12 h-12" />
+              )}
             </div>
-          )}
-        {!data.is_do_accepted &&
-          isLoggedIn &&
-          twitter_full_profile &&
-          twitter_full_profile.username === data.kol.screen_name && (
-            <div className="items-center justify-between gap-4 sm:hidden flex w-full px-10 mt-4">
-              <div
-                className="cursor-pointer hover:scale-110 transition-all duration-300"
-                onMouseEnter={() => setIsLikeHovered(true)}
-                onMouseLeave={() => setIsLikeHovered(false)}
-                onClick={() => setIsOpen(true)}
-              >
-                {isLikeHovered ? (
-                  <LikeBold className="w-6 h-6" />
-                ) : (
-                  <Like className="w-6 h-6" />
-                )}
-              </div>
-              <div
-                className="cursor-pointer hover:scale-110 transition-all duration-300"
-                onMouseEnter={() => setIsDislikeHovered(true)}
-                onMouseLeave={() => setIsDislikeHovered(false)}
-                onClick={() => setIsOpen(true)}
-              >
-                {isDislikeHovered ? (
-                  <DislikeBold className="w-6 h-6" />
-                ) : (
-                  <Dislike className="w-6 h-6" />
-                )}
-              </div>
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsDislikeHovered(true)}
+              onMouseLeave={() => setIsDislikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isDislikeHovered ? (
+                <DislikeBold className="w-12 h-12" />
+              ) : (
+                <Dislike className="w-12 h-12" />
+              )}
             </div>
-          )}
+          </div>
+        {/* )} */}
+        {/* {!data.is_do_accepted && ( */}
+          <div className="items-center justify-between gap-4 sm:hidden flex w-full px-10 mt-4">
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsLikeHovered(true)}
+              onMouseLeave={() => setIsLikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isLikeHovered ? (
+                <LikeBold className="w-6 h-6" />
+              ) : (
+                <Like className="w-6 h-6" />
+              )}
+            </div>
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsDislikeHovered(true)}
+              onMouseLeave={() => setIsDislikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isDislikeHovered ? (
+                <DislikeBold className="w-6 h-6" />
+              ) : (
+                <Dislike className="w-6 h-6" />
+              )}
+            </div>
+          </div>
+        {/* )} */}
       </div>
       <div className="w-full flex items-center justify-center gap-2 pb-4 flex-wrap">
         <div className="flex items-center gap-4 flex-wrap justify-center">
