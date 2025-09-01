@@ -299,36 +299,6 @@ export default function DialogConfimPrice({
               <p className="text-base font-sf">How should we contact you?</p>
               <div className="text-left mt-4 space-y-1">
                 <div>
-                  <label className="text-sm font-medium font-sf">Twitter</label>
-                  <Input
-                    placeholder="Enter twitter"
-                    value={contactInfo.twitter}
-                    onChange={(e) =>
-                      setContactInfo((prev) => ({
-                        ...prev,
-                        twitter: e.target.value,
-                      }))
-                    }
-                    className="mt-1 font-sf"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium font-sf">
-                    Telegram
-                  </label>
-                  <Input
-                    placeholder="Enter telegram handle"
-                    value={contactInfo.telegram}
-                    onChange={(e) =>
-                      setContactInfo((prev) => ({
-                        ...prev,
-                        telegram: e.target.value,
-                      }))
-                    }
-                    className="mt-1 font-sf"
-                  />
-                </div>
-                <div>
                   <label className="text-sm font-medium font-sf">
                     Email <span className="text-red">*</span>
                   </label>
@@ -359,6 +329,36 @@ export default function DialogConfimPrice({
                     className={`mt-1 font-sf ${
                       emailError ? "border-red focus:border-red" : ""
                     }`}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium font-sf">Twitter</label>
+                  <Input
+                    placeholder="Enter twitter"
+                    value={contactInfo.twitter}
+                    onChange={(e) =>
+                      setContactInfo((prev) => ({
+                        ...prev,
+                        twitter: e.target.value,
+                      }))
+                    }
+                    className="mt-1 font-sf"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium font-sf">
+                    Telegram
+                  </label>
+                  <Input
+                    placeholder="Enter telegram handle"
+                    value={contactInfo.telegram}
+                    onChange={(e) =>
+                      setContactInfo((prev) => ({
+                        ...prev,
+                        telegram: e.target.value,
+                      }))
+                    }
+                    className="mt-1 font-sf"
                   />
                 </div>
               </div>

@@ -39,29 +39,7 @@ export default function KolCardView({
   const [isOpen, setIsOpen] = useState(false);
   const [isLikeHovered, setIsLikeHovered] = useState(false);
   const [isDislikeHovered, setIsDislikeHovered] = useState(false);
-  const [clipboardSupported, setClipboardSupported] = useState<boolean | null>(
-    null
-  );
-
-  // 检测Clipboard API支持状态
-  useEffect(() => {
-    const checkClipboardSupport = async () => {
-      try {
-        // 检查是否支持现代Clipboard API
-        const hasClipboard = !!(navigator.clipboard && window.ClipboardItem);
-        setClipboardSupported(hasClipboard);
-
-        if (!hasClipboard) {
-          console.log("Clipboard API not supported, will use fallback methods");
-        }
-      } catch (error) {
-        console.log("Clipboard support check failed:", error);
-        setClipboardSupported(false);
-      }
-    };
-
-    checkClipboardSupport();
-  }, []);
+  // 仅使用现代 Clipboard API，不做降级与回退
 
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitter_full_profile = useAppSelector(
@@ -87,67 +65,39 @@ export default function KolCardView({
         logging: false,
       });
 
-      // 将canvas转换为blob
+      // 仅使用现代 Clipboard API 写入图片
       canvas.toBlob(async (blob) => {
-        if (blob) {
-          try {
-            // 尝试使用现代Clipboard API
-            if (navigator.clipboard && window.ClipboardItem) {
-              const clipboardItem = new ClipboardItem({
-                [blob.type]: blob,
-              });
-              await navigator.clipboard.write([clipboardItem]);
+        if (!blob) {
+          toast({
+            title: "Copy failed",
+            description: "Failed to create image. Please try again.",
+            variant: "destructive",
+          });
+          return;
+        }
 
-              toast({
-                title: "Copy successful",
-                description: "Card has been copied to clipboard",
-              });
-            } else {
-              // 降级方案：尝试复制图片到剪贴板
-              throw new Error("Clipboard API not supported");
-            }
-          } catch (clipboardError) {
-            console.log(
-              "Modern clipboard failed, trying fallback:",
-              clipboardError
-            );
+        if (!(navigator.clipboard && window.ClipboardItem)) {
+          toast({
+            title: "Copy not supported",
+            description: "Your browser doesn't support image clipboard.",
+            variant: "destructive",
+          });
+          return;
+        }
 
-            try {
-              // 降级方案1：尝试使用canvas的toBlob方法复制
-              const dataUrl = canvas.toDataURL("image/png");
-
-              // 创建一个临时的textarea来复制图片URL
-              const textArea = document.createElement("textarea");
-              textArea.value = dataUrl;
-              textArea.style.position = "fixed";
-              textArea.style.left = "-999999px";
-              textArea.style.top = "-999999px";
-              document.body.appendChild(textArea);
-              textArea.focus();
-              textArea.select();
-
-              const successful = document.execCommand("copy");
-              document.body.removeChild(textArea);
-
-              if (successful) {
-                toast({
-                  title: "Copy successful",
-                  description: "Card URL has been copied to clipboard",
-                });
-              } else {
-                throw new Error("execCommand copy failed");
-              }
-            } catch (fallbackError) {
-              console.log("Fallback copy failed:", fallbackError);
-
-              // 最后的降级方案：提示用户手动保存
-              toast({
-                title: "Copy not supported",
-                description: "Please right-click the card and save as image",
-                variant: "destructive",
-              });
-            }
-          }
+        try {
+          const clipboardItem = new ClipboardItem({ [blob.type]: blob });
+          await navigator.clipboard.write([clipboardItem]);
+          toast({
+            title: "Copy successful",
+            description: "Card has been copied to clipboard",
+          });
+        } catch (err) {
+          toast({
+            title: "Copy failed",
+            description: "Failed to copy. Please try again.",
+            variant: "destructive",
+          });
         }
       }, "image/png");
     } catch (error) {
@@ -218,60 +168,60 @@ export default function KolCardView({
           data={data}
         />
         {/* {!data.is_do_accepted && ( */}
-          <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
-            <div
-              className="cursor-pointer hover:scale-110 transition-all duration-300"
-              onMouseEnter={() => setIsLikeHovered(true)}
-              onMouseLeave={() => setIsLikeHovered(false)}
-              onClick={() => setIsOpen(true)}
-            >
-              {isLikeHovered ? (
-                <LikeBold className="w-12 h-12" />
-              ) : (
-                <Like className="w-12 h-12" />
-              )}
-            </div>
-            <div
-              className="cursor-pointer hover:scale-110 transition-all duration-300"
-              onMouseEnter={() => setIsDislikeHovered(true)}
-              onMouseLeave={() => setIsDislikeHovered(false)}
-              onClick={() => setIsOpen(true)}
-            >
-              {isDislikeHovered ? (
-                <DislikeBold className="w-12 h-12" />
-              ) : (
-                <Dislike className="w-12 h-12" />
-              )}
-            </div>
+        <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
+          <div
+            className="cursor-pointer hover:scale-110 transition-all duration-300"
+            onMouseEnter={() => setIsLikeHovered(true)}
+            onMouseLeave={() => setIsLikeHovered(false)}
+            onClick={() => setIsOpen(true)}
+          >
+            {isLikeHovered ? (
+              <LikeBold className="w-12 h-12" />
+            ) : (
+              <Like className="w-12 h-12" />
+            )}
           </div>
+          <div
+            className="cursor-pointer hover:scale-110 transition-all duration-300"
+            onMouseEnter={() => setIsDislikeHovered(true)}
+            onMouseLeave={() => setIsDislikeHovered(false)}
+            onClick={() => setIsOpen(true)}
+          >
+            {isDislikeHovered ? (
+              <DislikeBold className="w-12 h-12" />
+            ) : (
+              <Dislike className="w-12 h-12" />
+            )}
+          </div>
+        </div>
         {/* )} */}
         {/* {!data.is_do_accepted && ( */}
-          <div className="items-center justify-between gap-4 sm:hidden flex w-full px-10 mt-4">
-            <div
-              className="cursor-pointer hover:scale-110 transition-all duration-300"
-              onMouseEnter={() => setIsLikeHovered(true)}
-              onMouseLeave={() => setIsLikeHovered(false)}
-              onClick={() => setIsOpen(true)}
-            >
-              {isLikeHovered ? (
-                <LikeBold className="w-6 h-6" />
-              ) : (
-                <Like className="w-6 h-6" />
-              )}
-            </div>
-            <div
-              className="cursor-pointer hover:scale-110 transition-all duration-300"
-              onMouseEnter={() => setIsDislikeHovered(true)}
-              onMouseLeave={() => setIsDislikeHovered(false)}
-              onClick={() => setIsOpen(true)}
-            >
-              {isDislikeHovered ? (
-                <DislikeBold className="w-6 h-6" />
-              ) : (
-                <Dislike className="w-6 h-6" />
-              )}
-            </div>
+        <div className="items-center justify-between gap-4 sm:hidden flex w-full px-10 mt-4">
+          <div
+            className="cursor-pointer hover:scale-110 transition-all duration-300"
+            onMouseEnter={() => setIsLikeHovered(true)}
+            onMouseLeave={() => setIsLikeHovered(false)}
+            onClick={() => setIsOpen(true)}
+          >
+            {isLikeHovered ? (
+              <LikeBold className="w-6 h-6" />
+            ) : (
+              <Like className="w-6 h-6" />
+            )}
           </div>
+          <div
+            className="cursor-pointer hover:scale-110 transition-all duration-300"
+            onMouseEnter={() => setIsDislikeHovered(true)}
+            onMouseLeave={() => setIsDislikeHovered(false)}
+            onClick={() => setIsOpen(true)}
+          >
+            {isDislikeHovered ? (
+              <DislikeBold className="w-6 h-6" />
+            ) : (
+              <Dislike className="w-6 h-6" />
+            )}
+          </div>
+        </div>
         {/* )} */}
       </div>
       <div className="w-full flex items-center justify-center gap-2 pb-4 flex-wrap">
@@ -285,7 +235,7 @@ export default function KolCardView({
             <span>Try again</span>
           </Button>
           <Button
-            className="flex items-center py-1 text-md !h-10"
+            className="items-center py-1 text-md !h-10 sm:flex hidden"
             variant="outline_foreground"
             onClick={copyChart}
             disabled={isCopying}

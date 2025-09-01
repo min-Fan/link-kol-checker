@@ -63,7 +63,7 @@ export default function KolCard({
         <div className="text-white text-center font-kyiv">
           <div
             id="brand-name"
-            className="text-xl font-bold mb-1 truncate max-w-[230px] text-ellipsis text-center whitespace-nowrap cursor-pointer"
+            className="text-xl font-bold mb-1 truncate max-w-[230px] text-ellipsis text-center whitespace-nowrap cursor-pointer !leading-10"
             onClick={() => {
               copy(data?.kol?.name).then((success) => {
                 if (success) {
@@ -84,7 +84,7 @@ export default function KolCard({
           </div>
           <div
             id="username"
-            className="text-sm font-bold cursor-pointer"
+            className="text-sm font-bold cursor-pointer leading-none"
             onClick={() => {
               copy(data?.kol?.screen_name).then((success) => {
                 if (success) {
