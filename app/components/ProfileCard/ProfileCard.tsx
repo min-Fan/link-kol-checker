@@ -327,7 +327,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       style={cardStyle}
     >
       <section ref={cardRef} className="pc-card">
-        <KolCard data={data} className="w-full" />
+        <KolCard data={data} className="!w-[300px]" />
         {/* <div className="pc-inside">
           <div className="pc-shine" />
           <div className="pc-glare" />
