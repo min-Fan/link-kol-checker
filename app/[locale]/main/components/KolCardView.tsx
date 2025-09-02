@@ -150,79 +150,82 @@ export default function KolCardView({
   return (
     <div className="flex flex-col justify-center items-center gap-10 w-full sm:w-auto">
       <h1 className="text-center sm:text-4xl text-2xl font-bold mt-10 sm:mt-0">
-        Your Tweet Value
+        Prove your value
       </h1>
       <div className="flex items-center justify-center flex-col relative">
+        {/* fixed top-[-200%] left-[-200%] */}
         <DownloadCard
           data={data}
-          className="w-[800px] h-[800px] fixed top-[-200%] left-[-200%]"
+          className="w-[600px] h-[600px] fixed top-[-200%] left-[-200%]"
           ref={chartRef}
         />
-        <ProfileCard
-          avatarUrl={data.kol.profile_image_url}
-          iconUrl="https://check.linkol.fun/linkol-logoicon-dark.png"
-          showUserInfo={true}
-          enableTilt={true}
-          enableMobileTilt={false}
-          onContactClick={() => console.log("Contact clicked")}
-          data={data}
-        />
-        {/* {!data.is_do_accepted && ( */}
-        <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
-          <div
-            className="cursor-pointer hover:scale-110 transition-all duration-300"
-            onMouseEnter={() => setIsLikeHovered(true)}
-            onMouseLeave={() => setIsLikeHovered(false)}
-            onClick={() => setIsOpen(true)}
-          >
-            {isLikeHovered ? (
-              <LikeBold className="w-12 h-12" />
-            ) : (
-              <Like className="w-12 h-12" />
-            )}
+        <div className="relative">
+          <ProfileCard
+            avatarUrl={data.kol.profile_image_url}
+            iconUrl="https://check.linkol.fun/linkol-logoicon-dark.png"
+            showUserInfo={true}
+            enableTilt={true}
+            enableMobileTilt={false}
+            onContactClick={() => console.log("Contact clicked")}
+            data={data}
+          />
+          {/* {!data.is_do_accepted && ( */}
+          <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsLikeHovered(true)}
+              onMouseLeave={() => setIsLikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isLikeHovered ? (
+                <LikeBold className="w-12 h-12" />
+              ) : (
+                <Like className="w-12 h-12" />
+              )}
+            </div>
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsDislikeHovered(true)}
+              onMouseLeave={() => setIsDislikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isDislikeHovered ? (
+                <DislikeBold className="w-12 h-12" />
+              ) : (
+                <Dislike className="w-12 h-12" />
+              )}
+            </div>
           </div>
-          <div
-            className="cursor-pointer hover:scale-110 transition-all duration-300"
-            onMouseEnter={() => setIsDislikeHovered(true)}
-            onMouseLeave={() => setIsDislikeHovered(false)}
-            onClick={() => setIsOpen(true)}
-          >
-            {isDislikeHovered ? (
-              <DislikeBold className="w-12 h-12" />
-            ) : (
-              <Dislike className="w-12 h-12" />
-            )}
+          {/* )} */}
+          {/* {!data.is_do_accepted && ( */}
+          <div className="items-center justify-between gap-4 sm:hidden flex w-full px-10 mt-4">
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsLikeHovered(true)}
+              onMouseLeave={() => setIsLikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isLikeHovered ? (
+                <LikeBold className="w-6 h-6" />
+              ) : (
+                <Like className="w-6 h-6" />
+              )}
+            </div>
+            <div
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onMouseEnter={() => setIsDislikeHovered(true)}
+              onMouseLeave={() => setIsDislikeHovered(false)}
+              onClick={() => setIsOpen(true)}
+            >
+              {isDislikeHovered ? (
+                <DislikeBold className="w-6 h-6" />
+              ) : (
+                <Dislike className="w-6 h-6" />
+              )}
+            </div>
           </div>
+          {/* )} */}
         </div>
-        {/* )} */}
-        {/* {!data.is_do_accepted && ( */}
-        <div className="items-center justify-between gap-4 sm:hidden flex w-full px-10 mt-4">
-          <div
-            className="cursor-pointer hover:scale-110 transition-all duration-300"
-            onMouseEnter={() => setIsLikeHovered(true)}
-            onMouseLeave={() => setIsLikeHovered(false)}
-            onClick={() => setIsOpen(true)}
-          >
-            {isLikeHovered ? (
-              <LikeBold className="w-6 h-6" />
-            ) : (
-              <Like className="w-6 h-6" />
-            )}
-          </div>
-          <div
-            className="cursor-pointer hover:scale-110 transition-all duration-300"
-            onMouseEnter={() => setIsDislikeHovered(true)}
-            onMouseLeave={() => setIsDislikeHovered(false)}
-            onClick={() => setIsOpen(true)}
-          >
-            {isDislikeHovered ? (
-              <DislikeBold className="w-6 h-6" />
-            ) : (
-              <Dislike className="w-6 h-6" />
-            )}
-          </div>
-        </div>
-        {/* )} */}
       </div>
       <div className="w-full flex items-center justify-center gap-2 pb-4 flex-wrap">
         <div className="flex items-center gap-4 flex-wrap justify-center">
@@ -232,7 +235,7 @@ export default function KolCardView({
             onClick={onReset}
           >
             <RefreshCcw className="w-6 h-6 mr-2" />
-            <span>Try again</span>
+            <span>Try another</span>
           </Button>
           <Button
             className="items-center py-1 text-md !h-10 sm:flex hidden"

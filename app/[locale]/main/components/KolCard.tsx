@@ -46,7 +46,7 @@ export default function KolCard({
           </div>
 
           {/* 用户头像 */}
-          <div className="!rounded-md overflow-hidden flex items-center justify-center w-[140px] h-[140px]">
+          <div className="!rounded-md overflow-hidden flex items-center justify-center w-[200px] h-[200px]">
             <img
               id="user-avatar"
               src={
@@ -58,56 +58,10 @@ export default function KolCard({
             />
           </div>
         </div>
-
-        {/* 品牌名称 */}
-        <div className="text-white text-center font-kyiv">
-          <div
-            id="brand-name"
-            className="text-xl font-bold mb-1 truncate max-w-[230px] text-ellipsis text-center whitespace-nowrap cursor-pointer !leading-10"
-            onClick={() => {
-              copy(data?.kol?.name).then((success) => {
-                if (success) {
-                  toast({
-                    title: t("copy_success"),
-                    variant: "default",
-                  });
-                } else {
-                  toast({
-                    title: t("copy_failed"),
-                    variant: "destructive",
-                  });
-                }
-              });
-            }}
-          >
-            {data?.kol?.name}
-          </div>
-          <div
-            id="username"
-            className="text-sm font-bold cursor-pointer leading-none"
-            onClick={() => {
-              copy(data?.kol?.screen_name).then((success) => {
-                if (success) {
-                  toast({
-                    title: t("copy_success"),
-                    variant: "default",
-                  });
-                } else {
-                  toast({
-                    title: t("copy_failed"),
-                    variant: "destructive",
-                  });
-                }
-              });
-            }}
-          >
-            @{data?.kol?.screen_name}
-          </div>
-        </div>
       </div>
 
       {/* 价格显示 */}
-      <div className="flex justify-center flex-col items-center mt-5 pb-20">
+      <div className="flex justify-center flex-col items-center mt-5 pb-10">
         <div
           id="price"
           className="text-white text-4xl font-bold leading-none mb-2 font-kyiv"
@@ -122,7 +76,53 @@ export default function KolCard({
           <span className="text-xs text-primary !scale-90">Tweet</span>
           <span className="text-xs text-primary !scale-90">Value</span>
           <span className="text-xs text-primary !scale-90">By</span>
-          <span className="text-xs text-primary !scale-90">AI</span>
+          <span className="text-xs text-primary !scale-90 ml-0.5">AI</span>
+        </div>
+      </div>
+
+      {/* 用户名称 */}
+      <div className="text-[#090909] font-kyiv pl-16 pb-4">
+        <div
+          id="brand-name"
+          className="text-xl font-bold cursor-pointer truncate max-w-[200px] text-ellipsis whitespace-nowrap"
+          onClick={() => {
+            copy(data?.kol?.name).then((success) => {
+              if (success) {
+                toast({
+                  title: t("copy_success"),
+                  variant: "default",
+                });
+              } else {
+                toast({
+                  title: t("copy_failed"),
+                  variant: "destructive",
+                });
+              }
+            });
+          }}
+        >
+          {data?.kol?.name}
+        </div>
+        <div
+          id="username"
+          className="text-sm font-bold cursor-pointer leading-none"
+          onClick={() => {
+            copy(data?.kol?.screen_name).then((success) => {
+              if (success) {
+                toast({
+                  title: t("copy_success"),
+                  variant: "default",
+                });
+              } else {
+                toast({
+                  title: t("copy_failed"),
+                  variant: "destructive",
+                });
+              }
+            });
+          }}
+        >
+          @{data?.kol?.screen_name}
         </div>
       </div>
     </div>
