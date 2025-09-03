@@ -15,6 +15,7 @@ import { PixelartArrowRight, PixelartLoader } from "@/app/assets/svg";
 import FaultyTerminal from "@/app/components/FaultyTerminal/FaultyTerminal";
 import MainContentContext from "@/app/context/MainContentContext";
 import KolCardView from "./components/KolCardView";
+import DialogDisclaimer from "./components/dialog/DialogDisclaimer";
 
 // 缓存的 FaultyTerminal 组件，防止因为页面数据改变而重新渲染
 const CachedFaultyTerminal = React.memo(() => {
@@ -54,6 +55,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [price, setPrice] = useState<IGetPriceData | null>(null);
   const [showPeopleResults, setShowPeopleResults] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
 
   const handleCheck = async (usernameParam?: string) => {
@@ -195,6 +197,7 @@ export default function Home() {
                     <PixelartArrowRight className="w-6 h-6" />
                   )}
                 </Button>
+                <span className="text-xs text-muted-foreground hover:text-foreground hover:underline cursor-pointer" onClick={() => setIsOpen(true)}>Disclaimer</span>
               </div>
             </motion.div>
           ) : (
@@ -243,6 +246,7 @@ export default function Home() {
           )}
         </AnimatePresence>
       </MainContentContext>
+      <DialogDisclaimer isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 }
