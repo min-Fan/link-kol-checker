@@ -12,6 +12,7 @@ import { MiniKitContextProvider } from "../providers/MiniKitProvider";
 import { Metadata } from "next";
 import PrivyProviderContext from "../context/PrivyProvider";
 import ReduxProvider from "../context/ReduxProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 export default async function LocaleLayout({
   children,
@@ -53,6 +54,7 @@ export default async function LocaleLayout({
             <Toaster />
           </NextIntlClientProvider>
         </ReduxProvider>
+        <Analytics />
       </body>
     </html>
   );
