@@ -43,9 +43,11 @@ export default async function LocaleLayout({
                   <CanvasBackground />
                 </div> */}
                     {/* <div className="relative z-[0] w-full h-full flex flex-col items-center justify-start"> */}
-                    <Nav />
-                    {children}
-                    <Footer />
+                    <div className="pb-16 sm:pb-0">
+                      <Nav />
+                      {children}
+                      <Footer />
+                    </div>
                     {/* </div> */}
                   </ScrollArea>
                 </PrivyProviderContext>
