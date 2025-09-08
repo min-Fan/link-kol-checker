@@ -103,7 +103,7 @@ export default function CardView({
             : data?.current_value?.toLocaleString() || "0"}
         </div>
         <span className="text-xs text-primary scale-50 leading-none">
-          Single Tweet Value by AI
+          Single Tweet Value By AI
         </span>
       </div>
     </div>

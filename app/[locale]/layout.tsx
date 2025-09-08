@@ -12,6 +12,7 @@ import { MiniKitContextProvider } from "../providers/MiniKitProvider";
 import { Metadata } from "next";
 import PrivyProviderContext from "../context/PrivyProvider";
 import ReduxProvider from "../context/ReduxProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 export default async function LocaleLayout({
   children,
@@ -42,9 +43,11 @@ export default async function LocaleLayout({
                   <CanvasBackground />
                 </div> */}
                     {/* <div className="relative z-[0] w-full h-full flex flex-col items-center justify-start"> */}
-                    <Nav />
-                    {children}
-                    <Footer />
+                    <div className="pb-16 sm:pb-0">
+                      <Nav />
+                      {children}
+                      <Footer />
+                    </div>
                     {/* </div> */}
                   </ScrollArea>
                 </PrivyProviderContext>
@@ -53,6 +56,7 @@ export default async function LocaleLayout({
             <Toaster />
           </NextIntlClientProvider>
         </ReduxProvider>
+        <Analytics />
       </body>
     </html>
   );
