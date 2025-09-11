@@ -46,7 +46,7 @@ export default function KolCardView({
 
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitter_full_profile = useAppSelector(
-    (state) => state.userReducer.twitter_full_profile
+    (state) => state.userReducer.twitter_full_profile,
   );
 
   const shareOnX = () => {

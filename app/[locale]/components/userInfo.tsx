@@ -16,7 +16,7 @@ import { clearAuthToken } from "@/app/libs/utils";
 export default function UserInfo() {
   const { login, logout } = usePrivy();
   const twitterFullProfile = useAppSelector(
-    (state) => state.userReducer.twitter_full_profile
+    (state) => state.userReducer.twitter_full_profile,
   );
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const dispatch = useAppDispatch();
