@@ -197,7 +197,12 @@ export default function Home() {
                     <PixelartArrowRight className="w-6 h-6" />
                   )}
                 </Button>
-                <span className="text-xs text-muted-foreground hover:text-foreground hover:underline cursor-pointer" onClick={() => setIsOpen(true)}>Disclaimer</span>
+                <span
+                  className="text-xs text-muted-foreground hover:text-foreground hover:underline cursor-pointer"
+                  onClick={() => setIsOpen(true)}
+                >
+                  Disclaimer
+                </span>
               </div>
             </motion.div>
           ) : (

@@ -28,13 +28,14 @@ export default function nav() {
             </div>
           </Link> */}
 
-          <Link href="https://app.linkol.fun/en" target="_blank">
-            <div className="p-2 py-1 rounded-md flex items-center justify-center hover:bg-primary/80 transition-all duration-300 hover:text-white">
+          {/* <Link href="https://app.linkol.fun/en" target="_blank">
+            <div className="p-4 py-1.5 rounded-md flex items-center justify-center bg-primary/80 text-white hover:bg-primary/80 transition-all duration-300 hover:text-white gap-1">
               <span className="sm:text-md text-sm cursor-pointer transition-all duration-300 whitespace-nowrap">
                 Raffle tweet
               </span>
+              <ArrowUpRight className="w-4 h-4" />
             </div>
-          </Link>
+          </Link> */}
 
           <UserInfo />
         </div>

@@ -147,7 +147,7 @@ const DownloadCard = forwardRef<HTMLDivElement, DownloadCardProps>(
       <div
         className={cn(
           "w-[800px] h-[800px] flex items-center justify-center relative",
-          className
+          className,
         )}
         style={{
           backgroundImage: `url(${downloadCardBg.src})`,
@@ -166,7 +166,7 @@ const DownloadCard = forwardRef<HTMLDivElement, DownloadCardProps>(
         </div>
       </div>
     );
-  }
+  },
 );
 
 DownloadCard.displayName = "DownloadCard";
