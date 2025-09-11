@@ -16,7 +16,7 @@ import { clearAuthToken } from "@/app/libs/utils";
 export default function UserInfo() {
   const { login, logout } = usePrivy();
   const twitterFullProfile = useAppSelector(
-    (state) => state.userReducer.twitter_full_profile,
+    (state) => state.userReducer.twitter_full_profile
   );
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const dispatch = useAppDispatch();
@@ -37,7 +37,7 @@ export default function UserInfo() {
     <div className="flex items-center gap-2">
       {isLoggedIn ? (
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center sm:gap-2 gap-1">
             <img
               src={twitterFullProfile?.profilePictureUrl || ""}
               alt="user"
@@ -47,21 +47,29 @@ export default function UserInfo() {
                 e.currentTarget.className = "w-8 h-8 rounded-full";
               }}
             />
-            <span className="text-sm">{twitterFullProfile?.name}</span>
+            <span className="text-sm sm:block hidden">
+              {twitterFullProfile?.name}
+            </span>
           </div>
-          <Button variant="ghost" onClick={handleLogout}>
-            <LogOut />
+          <Button
+            variant="ghost"
+            className="p-0 hover:bg-transparent hover:text-primary"
+            onClick={handleLogout}
+            size="sm"
+          >
+            <LogOut className="w-4 h-4" />
           </Button>
         </div>
       ) : (
         <Button
           variant="ghost"
+          className="p-0 hover:bg-transparent hover:text-primary"
           onClick={() => {
             login();
           }}
         >
           <span className="text-sm">Login</span>
-          <LogIn />
+          <LogIn className="w-4 h-4" />
         </Button>
       )}
     </div>

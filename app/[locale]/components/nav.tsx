@@ -14,12 +14,12 @@ export default function nav() {
             <span className="text-lg font-sf-bold whitespace-nowrap sm:block hidden">
               LinKol Checker
             </span> */}
-            <span className="sm:text-xl text-md font-kyiv font-bold">
+            <span className="sm:text-xl text-sm font-kyiv font-bold whitespace-nowrap">
               Tweet Value Checker
             </span>
           </div>
         </Link>
-        <div className="flex items-center justify-between pr-2">
+        <div className="flex items-center justify-between pr-2 gap-2">
           {/* <Link href="/rank">
             <div className="p-2 py-1 rounded-md flex items-center justify-center hover:bg-primary/80 transition-all duration-300 hover:text-white">
               <span className="text-md cursor-pointer transition-all duration-300">
@@ -27,6 +27,14 @@ export default function nav() {
               </span>
             </div>
           </Link> */}
+
+          <Link href="https://app.linkol.fun/en" target="_blank">
+            <div className="p-2 py-1 rounded-md flex items-center justify-center hover:bg-primary/80 transition-all duration-300 hover:text-white">
+              <span className="sm:text-md text-sm cursor-pointer transition-all duration-300 whitespace-nowrap">
+                Raffle tweet
+              </span>
+            </div>
+          </Link>
 
           <UserInfo />
         </div>
