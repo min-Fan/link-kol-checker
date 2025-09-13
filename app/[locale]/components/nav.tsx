@@ -6,7 +6,7 @@ import UserInfo from "./userInfo";
 
 export default function nav() {
   return (
-    <div className="w-full bg-transparent flex items-center justify-between relative z-10">
+    <div className="w-full bg-transparent flex items-center justify-between relative z-10 p-2 sm:p-0">
       <div className="w-full h-10 sm:h-12 flex items-center justify-between rounded-lg sm:rounded-xl p-2 sm:p-4 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none">
         <Link href="/">
           <div className="flex items-center justify-between">

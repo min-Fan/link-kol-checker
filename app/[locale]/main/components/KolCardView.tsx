@@ -46,7 +46,7 @@ export default function KolCardView({
 
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitter_full_profile = useAppSelector(
-    (state) => state.userReducer.twitter_full_profile,
+    (state) => state.userReducer.twitter_full_profile
   );
 
   const shareOnX = () => {
@@ -172,14 +172,14 @@ export default function KolCardView({
             onContactClick={() => console.log("Contact clicked")}
             data={data}
           />
-          <Link href="https://app.linkol.fun/en" target="_blank">
+          {/* <Link href="https://app.linkol.fun/en" target="_blank">
             <div className="p-4 py-1.5 rounded-md flex items-center justify-center bg-primary/80 text-white hover:bg-primary/80 transition-all duration-300 hover:text-white gap-1 sm:absolute sm:top-[50%] sm:right-0 sm:translate-x-[200%] sm:translate-y-[-50%] mt-4 sm:mt-0">
               <span className="sm:text-md text-sm cursor-pointer transition-all duration-300 whitespace-nowrap">
-                Raffle tweet
+                Post to earn
               </span>
               <ArrowRight className="w-4 h-4" />
             </div>
-          </Link>
+          </Link> */}
           {/* {!data.is_do_accepted && ( */}
           <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
             <div
