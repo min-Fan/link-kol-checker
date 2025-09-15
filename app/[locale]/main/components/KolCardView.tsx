@@ -9,6 +9,7 @@ import {
   RefreshCcw,
   ArrowUpRight,
   ArrowRight,
+  Info,
 } from "lucide-react";
 import html2canvas from "html2canvas";
 import { toast } from "@/app/shadcn/hooks/use-toast";
@@ -26,6 +27,9 @@ import DownloadCard from "./DownloadCard";
 import DialogConfimPrice from "./dialog/DialogConfimPrice";
 import { useAppSelector } from "@/app/store/hooks";
 import { Link } from "@/app/i18n/routing";
+import CommTabs from "./comm/CommTabs";
+import { ActiveTab } from "./comm/CommTabs";
+import KolHistoryLineChart from "./KolHistoryLineChart";
 
 export default function KolCardView({
   data,
@@ -42,7 +46,7 @@ export default function KolCardView({
   const [isOpen, setIsOpen] = useState(false);
   const [isLikeHovered, setIsLikeHovered] = useState(false);
   const [isDislikeHovered, setIsDislikeHovered] = useState(false);
-  // 仅使用现代 Clipboard API，不做降级与回退
+  const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.tab2);
 
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitter_full_profile = useAppSelector(
@@ -150,19 +154,24 @@ export default function KolCardView({
     }
   };
 
+  // 处理时间标签变化
+  const handleTabChange = (value: string) => {
+    setActiveTab(value as ActiveTab);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center gap-10 w-full sm:w-auto">
       <h1 className="text-center sm:text-4xl text-2xl font-bold mt-10 sm:mt-0">
         Prove your value
       </h1>
-      <div className="flex items-center justify-center flex-col relative">
+      <div className="flex items-center justify-center relative flex-col md:flex-row flex-wrap gap-6 sm:gap-14 min-h-[600px]">
         {/* fixed top-[-200%] left-[-200%] */}
         <DownloadCard
           data={data}
           className="w-[600px] h-[600px] fixed top-[-200%] left-[-200%]"
           ref={chartRef}
         />
-        <div className="relative">
+        <div className="relative pl-0 md:pl-24">
           <ProfileCard
             avatarUrl={data.kol.profile_image_url}
             iconUrl="https://check.linkol.fun/linkol-logoicon-dark.png"
@@ -181,7 +190,7 @@ export default function KolCardView({
             </div>
           </Link> */}
           {/* {!data.is_do_accepted && ( */}
-          <div className="absolute bottom-0 -right-20 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
+          <div className="absolute bottom-0 -left-24 md:left-4 z-10 items-center justify-center gap-6 flex-col sm:flex hidden">
             <div
               className="cursor-pointer hover:scale-110 transition-all duration-300"
               onMouseEnter={() => setIsLikeHovered(true)}
@@ -237,6 +246,8 @@ export default function KolCardView({
           </div>
           {/* )} */}
         </div>
+
+        <KolHistoryLineChart screenName={data.kol.screen_name} />
       </div>
       <div className="w-full flex items-center justify-center gap-2 pb-4 flex-wrap">
         <div className="flex items-center gap-4 flex-wrap justify-center">

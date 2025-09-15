@@ -46,7 +46,7 @@ export default function DialogConfimPrice({
 }: DialogConfimPriceProps) {
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitterFullProfile = useAppSelector(
-    (state) => state.userReducer.twitter_full_profile,
+    (state) => state.userReducer.twitter_full_profile
   );
   const { login } = usePrivy();
   const { toast } = useToast();
@@ -166,6 +166,7 @@ export default function DialogConfimPrice({
         try {
           const newPriceData = await getPrice({
             screen_name: data.kol.screen_name,
+            source: "web",
           });
           if (newPriceData.data) {
             // 通知父组件数据已更新
