@@ -20,7 +20,7 @@ import { Skeleton } from "@/app/shadcn/components/ui/skeleton";
 import avatar from "@/app/assets/img/avatar.png";
 import React, { useEffect, useState } from "react";
 import { copy, formatNumberKMB } from "@/app/libs/utils";
-import { Top1, Top2, Top3, TwitterIcon } from "@/app/assets/svg";
+import { Top1, Top2, Top3, TwitterIcon, Verified } from "@/app/assets/svg";
 import { useToast } from "@/app/shadcn/hooks/use-toast";
 import { useTranslations } from "next-intl";
 import { rankList } from "@/app/libs/request";
@@ -241,8 +241,8 @@ export default function RankList() {
   }, []);
 
   return (
-    <div className="w-full px-2 sm:px-0 sm:w-[740px] flex flex-col items-center justify-start gap-2 sm:gap-4">
-      <div className="flex items-center justify-between w-full">
+    <div className="w-full px-2 py-2 sm:w-[900px] flex flex-col items-center justify-start gap-2 sm:gap-4 sm:px-20 sm:py-10 shadow-[0_0_40px_0px_rgba(0,122,255,1)] border-[3px] border-primary rounded-lg mt-4 sm:mt-10">
+      {/* <div className="flex items-center justify-between w-full">
         <span className="sm:text-lg text-md text-foreground font-sf">
           Total: {formatNumberKMB(totalItems)}
         </span>
@@ -281,8 +281,8 @@ export default function RankList() {
             }}
           />
         </div>
-      </div>
-      <Table className="border-t border-border w-full">
+      </div> */}
+      <Table className="border-t border-border w-full ">
         <TableHeader>
           <TableRow>
             <TableHead>
@@ -351,9 +351,14 @@ export default function RankList() {
                       />
                     </div>
                     <div className="flex flex-col items-start justify-start">
-                      <span className="sm:text-md text-sm text-foreground font-sf">
-                        {item.name}
-                      </span>
+                      <div className="flex items-center justify-start gap-0">
+                        <span className="sm:text-md text-sm text-foreground font-sf truncate max-w-full">
+                          {item.name}
+                        </span>
+                        {item.is_verified && (
+                          <Verified className="w-4 h-4 sm:w-4 sm:h-4" />
+                        )}
+                      </div>
                       <span
                         className="sm:text-sm text-xs text-muted-foreground font-sf cursor-pointer"
                         onClick={() => {
@@ -375,17 +380,17 @@ export default function RankList() {
                         @{item.screen_name}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between">
+                    {/* <div className="flex items-center justify-between">
                       <TwitterIcon
                         className="w-4 h-4 sm:w-6 sm:h-6 text-foreground cursor-pointer"
                         onClick={() => {
                           window.open(
                             `https://x.com/${item.screen_name}`,
-                            "_blank",
+                            "_blank"
                           );
                         }}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </TableCell>
                 <TableCell>

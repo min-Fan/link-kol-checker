@@ -46,7 +46,7 @@ export default function DialogConfimPrice({
 }: DialogConfimPriceProps) {
   const isLoggedIn = useAppSelector((state) => state.userReducer.isLoggedIn);
   const twitterFullProfile = useAppSelector(
-    (state) => state.userReducer.twitter_full_profile
+    (state) => state.userReducer.twitter_full_profile,
   );
   const { login } = usePrivy();
   const { toast } = useToast();

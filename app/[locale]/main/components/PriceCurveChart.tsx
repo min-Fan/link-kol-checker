@@ -29,7 +29,7 @@ interface PriceCurveChartProps {
 
 export function PriceCurveChart({ screenName }: PriceCurveChartProps) {
   const [chartData, setChartData] = useState<IGet7DaysPriceCurveData | null>(
-    null
+    null,
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -127,7 +127,7 @@ export function PriceCurveChart({ screenName }: PriceCurveChartProps) {
         accessibilityLayer
         data={processedData}
         margin={{
-          top: 0,
+          top: 20,
           left: 5,
           right: 5,
         }}

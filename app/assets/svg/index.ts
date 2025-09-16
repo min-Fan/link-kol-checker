@@ -15,6 +15,7 @@ import LikeBold from "./like-bold.svg";
 import DislikeBold from "./dislike-bold.svg";
 import Success from "./suc.svg";
 import Fail from "./fail.svg";
+import Verified from "./verifyed.svg";
 
 export {
   Logo,
@@ -34,4 +35,5 @@ export {
   DislikeBold,
   Success,
   Fail,
+  Verified,
 };

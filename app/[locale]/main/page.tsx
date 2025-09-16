@@ -133,7 +133,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="w-full h-full absolute z-0 inset-0">
+      <div className="w-full h-full absolute z-0 inset-0 pointer-events-none">
         <CachedFaultyTerminal />
         <div className="w-full h-full absolute z-0 inset-0 bg-black/60 pointer-events-none"></div>
       </div>
