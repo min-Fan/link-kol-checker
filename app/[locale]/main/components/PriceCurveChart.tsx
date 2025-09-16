@@ -127,7 +127,7 @@ export function PriceCurveChart({ screenName }: PriceCurveChartProps) {
         accessibilityLayer
         data={processedData}
         margin={{
-          top: 0,
+          top: 20,
           left: 5,
           right: 5,
         }}
