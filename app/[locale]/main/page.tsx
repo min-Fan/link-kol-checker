@@ -80,7 +80,10 @@ export default function Home() {
         setShowPeopleResults(false);
       }, 500);
 
-      const res: any = await getPrice({ screen_name: targetUsername });
+      const res: any = await getPrice({
+        screen_name: targetUsername,
+        source: "web",
+      });
       if (res.code === 200 && res.data) {
         setPrice(res.data);
       } else {

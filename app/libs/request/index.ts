@@ -8,6 +8,7 @@ export const ENDPOINT_URL = {
   GET_RANK_LIST: "/kol/api/v5/top/kols/",
   LOGIN: "/kol/api/v4/simple/login/",
   ACCEPT_PRICE: "/kol/api/v4/price/accept/",
+  GET_7_DAYS_PRICE_CURVE: "/kol/api/v4/price/chart/",
 };
 
 /**
@@ -29,6 +30,10 @@ export const getPosts = async (params: IGetPostsParams) => {
  */
 export interface IGetPriceParams {
   screen_name: string;
+  /**
+   * 来源
+   */
+  source?: "web" | "agent";
 }
 export interface IGetPriceData {
   /**
@@ -162,4 +167,22 @@ export interface IAcceptPriceParams {
 }
 export const acceptPrice = async (params: IAcceptPriceParams) => {
   return request.post(ENDPOINT_URL.ACCEPT_PRICE, params);
+};
+
+// 7日价格曲线
+export interface IGet7DaysPriceCurveParams {
+  /**
+   * 推特账号
+   */
+  screen_name: string;
+}
+export interface IGet7DaysPriceCurveData {
+  data: number[];
+  labels: string[];
+}
+export const get7DaysPriceCurve = async (params: IGet7DaysPriceCurveParams) => {
+  return request.get<IGet7DaysPriceCurveData>(
+    ENDPOINT_URL.GET_7_DAYS_PRICE_CURVE,
+    { ...params }
+  );
 };
