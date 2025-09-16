@@ -13,6 +13,7 @@ import { Metadata } from "next";
 import PrivyProviderContext from "../context/PrivyProvider";
 import ReduxProvider from "../context/ReduxProvider";
 import { Analytics } from "@vercel/analytics/next";
+import BprogressProvider from "../context/bprogress/Provider";
 
 export default async function LocaleLayout({
   children,
@@ -36,22 +37,24 @@ export default async function LocaleLayout({
         <ReduxProvider>
           <NextIntlClientProvider messages={messages}>
             <WagmiProviderContext>
-              <MiniKitContextProvider>
-                <PrivyProviderContext>
-                  <ScrollArea className="bg-background flex w-full h-screen flex-col bg-[radial-gradient(66.14%_90.55%_at_49.89%_100%,rgba(0,122,255,0.10)_0%,rgba(0,122,255,0.00)_100%)] shadow-[0px 4px 6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[30px]">
-                    {/* <div className="absolute inset-0 z-[0] w-full h-full">
+              <BprogressProvider>
+                <MiniKitContextProvider>
+                  <PrivyProviderContext>
+                    <ScrollArea className="bg-background flex w-full h-screen flex-col bg-[radial-gradient(66.14%_90.55%_at_49.89%_100%,rgba(0,122,255,0.10)_0%,rgba(0,122,255,0.00)_100%)] shadow-[0px 4px 6px_0px_rgba(0,0,0,0.05)] backdrop-blur-[30px]">
+                      {/* <div className="absolute inset-0 z-[0] w-full h-full">
                   <CanvasBackground />
                 </div> */}
-                    {/* <div className="relative z-[0] w-full h-full flex flex-col items-center justify-start"> */}
-                    <div className="pb-32 sm:pb-0">
-                      <Nav />
-                      {children}
-                      <Footer />
-                    </div>
-                    {/* </div> */}
-                  </ScrollArea>
-                </PrivyProviderContext>
-              </MiniKitContextProvider>
+                      {/* <div className="relative z-[0] w-full h-full flex flex-col items-center justify-start"> */}
+                      <div className="pb-32 sm:pb-0">
+                        <Nav />
+                        {children}
+                        <Footer />
+                      </div>
+                      {/* </div> */}
+                    </ScrollArea>
+                  </PrivyProviderContext>
+                </MiniKitContextProvider>
+              </BprogressProvider>
             </WagmiProviderContext>
             <Toaster />
           </NextIntlClientProvider>

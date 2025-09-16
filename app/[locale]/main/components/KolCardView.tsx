@@ -247,7 +247,7 @@ export default function KolCardView({
           {/* )} */}
         </div>
 
-        <KolHistoryLineChart screenName={data.kol.screen_name} />
+        <KolHistoryLineChart screenName={data.kol.screen_name} info={data}/>
       </div>
       <div className="w-full flex items-center justify-center gap-2 pb-4 flex-wrap">
         <div className="flex items-center gap-4 flex-wrap justify-center">

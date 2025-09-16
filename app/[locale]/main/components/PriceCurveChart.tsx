@@ -13,6 +13,7 @@ import { Skeleton } from "@/app/shadcn/components/ui/skeleton";
 import {
   get7DaysPriceCurve,
   IGet7DaysPriceCurveData,
+  IGetPriceData,
 } from "@/app/libs/request";
 import { AreaChartIcon, X } from "lucide-react";
 
@@ -24,12 +25,13 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface PriceCurveChartProps {
+  info: IGetPriceData;
   screenName: string;
 }
 
-export function PriceCurveChart({ screenName }: PriceCurveChartProps) {
+export function PriceCurveChart({ info, screenName }: PriceCurveChartProps) {
   const [chartData, setChartData] = useState<IGet7DaysPriceCurveData | null>(
-    null,
+    null
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -160,8 +162,8 @@ export function PriceCurveChart({ screenName }: PriceCurveChartProps) {
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: payload[0].color }}
                     />
-                    <span className="font-sf text-sm font-medium">
-                      Price Curve
+                    <span className="font-sf text-sm font-medium truncate max-w-[100px]">
+                      {info?.kol?.name || screenName}
                     </span>
                   </div>
                   <div className="font-sf text-muted-foreground">
