@@ -4,13 +4,16 @@ import { Info } from "lucide-react";
 import CommTabs from "./comm/CommTabs";
 import { ActiveTab } from "./comm/CommTabs";
 import { PriceCurveChart } from "./PriceCurveChart";
+import { IGetPriceData } from "@/app/libs/request";
 
 interface KolHistoryLineChartProps {
   screenName?: string;
+  info: IGetPriceData;
 }
 
 export default function KolHistoryLineChart({
   screenName,
+  info,
 }: KolHistoryLineChartProps) {
   const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.tab2);
   const tabs = [ActiveTab.tab2];
@@ -35,7 +38,7 @@ export default function KolHistoryLineChart({
           />
         </div>
         <div className="w-full h-full flex-1">
-          <PriceCurveChart screenName={screenName || ""} />
+          <PriceCurveChart screenName={screenName || ""} info={info} />
         </div>
       </div>
     </div>
