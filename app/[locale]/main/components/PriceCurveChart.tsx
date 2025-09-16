@@ -31,7 +31,7 @@ interface PriceCurveChartProps {
 
 export function PriceCurveChart({ info, screenName }: PriceCurveChartProps) {
   const [chartData, setChartData] = useState<IGet7DaysPriceCurveData | null>(
-    null
+    null,
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
