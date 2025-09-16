@@ -67,7 +67,10 @@ export default function CardView({
 
         {/* 品牌名称 */}
         <div className="text-white text-center font-kyiv w-full px-2">
-          <div id="brand-name" className="text-md font-bold mb-1 truncate max-w-full">
+          <div
+            id="brand-name"
+            className="text-md font-bold mb-1 truncate max-w-full"
+          >
             {data?.kol?.name}
           </div>
           <div

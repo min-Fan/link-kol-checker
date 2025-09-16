@@ -49,7 +49,7 @@ export default function DialogMenu({
                 variant="ghost"
                 className={cn(
                   "w-full bg-primary/5 hover:bg-primary/10 hover:text-white",
-                  pathname === "/" && "bg-primary/40 hover:bg-primary/50"
+                  pathname === "/" && "bg-primary/40 hover:bg-primary/50",
                 )}
               >
                 <span>Home</span>
@@ -60,7 +60,7 @@ export default function DialogMenu({
                 variant="ghost"
                 className={cn(
                   "w-full bg-primary/5 hover:bg-primary/10 hover:text-white",
-                  pathname === "/rank" && "bg-primary/40 hover:bg-primary/50"
+                  pathname === "/rank" && "bg-primary/40 hover:bg-primary/50",
                 )}
               >
                 <span>Leaderboard</span>

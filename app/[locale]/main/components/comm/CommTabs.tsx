@@ -28,7 +28,7 @@ export default function CommTabs({
             className={cn(
               "text-background !h-full",
               activeTab === tab &&
-                "!bg-primary/5 !text-primary border !border-primary !rounded-full text-sm font-bold sm:text-md gap-1 p-1 px-1.5"
+                "!bg-primary/5 !text-primary border !border-primary !rounded-full text-sm font-bold sm:text-md gap-1 p-1 px-1.5",
             )}
           >
             {activeTab === tab && <Clock className="h-4 w-4 min-w-4 min-h-4" />}

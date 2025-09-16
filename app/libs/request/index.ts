@@ -183,6 +183,6 @@ export interface IGet7DaysPriceCurveData {
 export const get7DaysPriceCurve = async (params: IGet7DaysPriceCurveParams) => {
   return request.get<IGet7DaysPriceCurveData>(
     ENDPOINT_URL.GET_7_DAYS_PRICE_CURVE,
-    { ...params }
+    { ...params },
   );
 };

@@ -32,7 +32,7 @@ export default function nav() {
               <div
                 className={cn(
                   "p-2 py-1 flex items-center justify-center hover:bg-white transition-all duration-300 hover:text-black",
-                  pathname === "/rank" && "bg-white text-black"
+                  pathname === "/rank" && "bg-white text-black",
                 )}
               >
                 <span className="text-md cursor-pointer transition-all duration-300">

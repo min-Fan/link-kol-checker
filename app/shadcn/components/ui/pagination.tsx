@@ -54,7 +54,7 @@ const PaginationLink = ({
       }),
       "hover:bg-primary/20 hover:text-foreground",
       isActive && "hover:bg-background hover:text-foreground",
-      className
+      className,
     )}
     {...props}
   />
@@ -70,7 +70,7 @@ const PaginationPrevious = ({
     size="default"
     className={cn(
       "gap-1 pl-2.5 hover:text-foreground hover:bg-primary/20",
-      className
+      className,
     )}
     {...props}
   >
@@ -89,7 +89,7 @@ const PaginationNext = ({
     size="default"
     className={cn(
       "gap-1 pr-2.5 hover:text-foreground hover:bg-primary/20",
-      className
+      className,
     )}
     {...props}
   >

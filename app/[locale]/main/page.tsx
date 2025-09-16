@@ -39,7 +39,7 @@ const CachedFaultyTerminal = React.memo(() => {
       pageLoadAnimation: false,
       brightness: 0.6,
     }),
-    []
+    [],
   );
 
   return <FaultyTerminal {...terminalProps} />;
